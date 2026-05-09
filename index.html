@@ -11,6 +11,28 @@ body{background:#f8f9fa;padding:60px 20px;}
 .header{text-align:center;margin-bottom:60px;}
 .title{font-size:32px;font-weight:700;color:#1a1a1a;margin-bottom:12px;}
 .subtitle{font-size:16px;color:#666;line-height:1.6;}
+.early-bird-banner{background:#fef3c7;border:1px solid #fbbf24;color:#92400e;padding:16px 20px;border-radius:10px;text-align:center;font-size:14px;margin:20px auto 0;max-width:640px;}
+.early-bird-banner strong{color:#b45309;}
+.countdown{
+  display:inline-block;
+  background:#fff;
+  color:#b45309;
+  padding:6px 14px;
+  border-radius:6px;
+  font-size:14px;
+  font-family:'Courier New',monospace;
+  margin-top:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  border:1px solid #fbbf24;
+}
+.countdown span{
+  color:#dc2626;
+  font-size:16px;
+  display:inline-block;
+  min-width:24px;
+  text-align:center;
+}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:stretch;}
 .card{background:#fff;border:1px solid #e0e0e0;border-radius:16px;padding:40px 26px 32px;text-align:center;transition:all 0.3s;position:relative;display:flex;flex-direction:column;}
 .card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,0.05);}
@@ -22,11 +44,15 @@ body{background:#f8f9fa;padding:60px 20px;}
 .card-text{font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;min-height:72px;flex-grow:1;}
 .card-text strong{color:#1a1a1a;}
 .price{font-size:36px;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
-.price-note{font-size:13px;color:#999;margin-bottom:24px;}
-.btn{display:block;width:100%;background:#1a1a1a;color:#fff;text-decoration:none;padding:14px 0;border-radius:10px;font-size:16px;font-weight:500;transition:background 0.2s;border:none;cursor:pointer;}
-.btn:hover{background:#333;}
-.btn.primary{background:#2563eb;}
-.btn.primary:hover{background:#1d4ed8;}
+.price-note{font-size:13px;color:#999;margin-bottom:14px;}
+.early-price{background:#fff7ed;border:1px dashed #fb923c;border-radius:8px;padding:10px 12px;margin-bottom:18px;font-size:13px;color:#9a3412;}
+.early-price .ep-amount{font-size:20px;font-weight:700;color:#ea580c;}
+.early-price .ep-strike{text-decoration:line-through;color:#999;margin-left:8px;font-size:15px;font-weight:500;}
+.btn{display:block;width:100%;text-decoration:none;padding:14px 0;border-radius:10px;font-size:15px;font-weight:500;transition:background 0.2s;border:none;cursor:pointer;margin-bottom:8px;}
+.btn.primary{background:#ea580c;color:#fff;}
+.btn.primary:hover{background:#c2410c;}
+.btn.secondary{background:#fff;color:#666;border:1px solid #d1d5db;font-size:13px;padding:10px 0;}
+.btn.secondary:hover{background:#f9fafb;color:#1a1a1a;}
 .footer-note{text-align:center;margin-top:40px;font-size:13px;color:#999;line-height:1.8;}
 
 /* 弹窗样式 */
@@ -46,6 +72,16 @@ body{background:#f8f9fa;padding:60px 20px;}
 <div class="header">
 <h1 class="title">活在当下 Life OS</h1>
 <p class="subtitle">Notion 个人管理系统 | 把目标、习惯、任务和生活节奏放进一个系统，让每一天都更清晰</p>
+<div class="early-bird-banner">
+🌱 <strong>年中复盘 · 开张早鸟价（限前 100 名 · 仅剩 88 名）</strong>：6/30 截止，加微信领半价
+<div class="countdown">
+⏰ 活动倒计时 
+<span id="cd-days">--</span> 天 
+<span id="cd-hours">--</span> : 
+<span id="cd-mins">--</span> : 
+<span id="cd-secs">--</span>
+</div>
+</div>
 </div>
 <div class="grid">
 
@@ -56,7 +92,11 @@ body{background:#f8f9fa;padding:60px 20px;}
 <p class="card-text">核心执行闭环<br><strong>时光机 · OKR · 日志 · 记账 · 旅行娱乐</strong></p>
 <div class="price">¥138</div>
 <div class="price-note">一次购买，永久使用</div>
-<button class="btn" onclick="openPay('xl', 138)">立即购买</button>
+<div class="early-price">
+🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
+</div>
+<button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+<button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 ¥138</button>
 </div>
 
 <!-- 标准版 -->
@@ -67,17 +107,25 @@ body{background:#f8f9fa;padding:60px 20px;}
 <p class="card-text">完整 Lite 体验<br>效率版全部功能 + <strong>聚焦痛点 · 刻意练习</strong></p>
 <div class="price">¥199</div>
 <div class="price-note">一次购买，永久使用</div>
-<button class="btn primary" onclick="openPay('bz', 199)">立即购买</button>
+<div class="early-price">
+🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
+</div>
+<button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+<button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 ¥199</button>
 </div>
 
 <!-- Pro版 -->
 <div class="card">
 <h3 class="card-title">Pro版</h3>
-<p class="card-tag highlight">海外同版本 $49–89</p>
+<p class="card-tag highlight">海外同版本 $69</p>
 <p class="card-text">全功能 + 心智修行<br>标准版全部功能 + <strong>视角切换 · 关系审视 · 思考洞见 · 高密度人生</strong></p>
-<div class="price">¥299</div>
+<div class="price">¥499</div>
 <div class="price-note">含终身更新</div>
-<button class="btn" onclick="openPay('pro', 299)">立即购买</button>
+<div class="early-price">
+🌱 早鸟价 <span class="ep-amount">¥268</span><span class="ep-strike">¥499</span>
+</div>
+<button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+<button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 ¥499</button>
 </div>
 
 </div>
@@ -103,20 +151,47 @@ const groupLink = "https://work.weixin.qq.com/ca/cawcde3aec710217c7";
 
 // 打开付款弹窗
 function openPay(type, price){
-    document.getElementById("showPrice").innerText = "¥" + price;
-    document.getElementById("mask").style.display = "flex";
+  document.getElementById("showPrice").innerText = "¥" + price;
+  document.getElementById("mask").style.display = "flex";
 }
 
 // 关闭付款弹窗
 function closeMask(){
-    document.getElementById("mask").style.display = "none";
+  document.getElementById("mask").style.display = "none";
 }
 
 // 直接跳转到群获客链接
 function joinGroup(){
-    window.open(groupLink, "_blank");
-    closeMask();
+  window.open(groupLink, "_blank");
+  closeMask();
 }
+
+// ====== 早鸟活动倒计时 ======
+// 想延长/缩短活动只需要改这一行的日期 ↓
+const earlyBirdEndDate = new Date("2026-06-30T23:59:59+08:00").getTime();
+
+function updateCountdown(){
+  const now = new Date().getTime();
+  const distance = earlyBirdEndDate - now;
+  
+  if(distance < 0){
+    document.querySelector(".countdown").innerHTML = "⏰ 早鸟活动已结束";
+    return;
+  }
+  
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  document.getElementById("cd-days").innerText = days;
+  document.getElementById("cd-hours").innerText = String(hours).padStart(2, '0');
+  document.getElementById("cd-mins").innerText = String(mins).padStart(2, '0');
+  document.getElementById("cd-secs").innerText = String(secs).padStart(2, '0');
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
 </script>
 </body>
 </html>
