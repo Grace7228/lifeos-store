@@ -88,7 +88,7 @@ text-align:center;
 .card-features li::before{content:"•";color:#2563eb;font-weight:700;position:absolute;left:2px;}
 
 /* UNIQUE */
-.unique-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.unique-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .unique-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:28px 24px;}
 .unique-card .num{display:inline-block;width:36px;height:36px;background:#1a1a1a;color:#fff;border-radius:50%;text-align:center;line-height:36px;font-weight:700;margin-bottom:14px;font-size:15px;}
 .unique-card h3{font-size:17px;font-weight:700;margin-bottom:10px;color:#1a1a1a;}
@@ -122,6 +122,7 @@ text-align:center;
 .hero h1{font-size:26px;}
 .section h2{font-size:22px;}
 .closing{padding:36px 22px;}
+.unique-grid{grid-template-columns:1fr;}
 }
 
 .card{background:#fff;border:1px solid #e0e0e0;border-radius:16px;padding:40px 26px 32px;text-align:center;transition:all 0.3s;position:relative;display:flex;flex-direction:column;}
@@ -138,45 +139,21 @@ text-align:center;
 .early-price{background:#fff7ed;border:1px dashed #fb923c;border-radius:8px;padding:10px 12px;margin-bottom:18px;font-size:13px;color:#9a3412;}
 .early-price .ep-amount{font-size:20px;font-weight:700;color:#ea580c;}
 .early-price .ep-strike{text-decoration:line-through;color:#999;margin-left:8px;font-size:15px;font-weight:500;}
-.btn{
-  display:block;
-  width:100%;
-  text-decoration:none;
-  padding:14px 0;
-  border-radius:10px;
-  font-size:15px;
-  font-weight:500;
-  transition:background 0.2s;
-  border:none;
-  cursor:pointer;
-  margin-bottom:8px;
-}
-/* 加微信领早鸟价：灰色按钮 */
-.btn.primary{
-  background:#9ca3af;
-  color:#ffffff;
-}
-.btn.primary:hover{
-  background:#6b7280;
-}
-/* 立即购买：蓝色按钮 */
-.btn.secondary{
-  background:#2563eb;
-  color:#ffffff;
-  border:none;
-  font-size:13px;
-  padding:10px 0;
-}
-.btn.secondary:hover{
-  background:#1d4ed8;
-  color:#ffffff;
-}
+.btn{display:block;width:100%;text-decoration:none;padding:14px 0;border-radius:10px;font-size:15px;font-weight:500;transition:background 0.2s;border:none;cursor:pointer;margin-bottom:8px;}
+.btn.primary{background:#9ca3af;color:#ffffff;}
+.btn.primary:hover{background:#6b7280;}
+.btn.secondary{background:#2563eb;color:#ffffff;border:none;font-size:13px;padding:10px 0;}
+.btn.secondary:hover{background:#1d4ed8;color:#ffffff;}
+.footer-note{text-align:center;margin-top:40px;font-size:13px;color:#999;line-height:1.8;}
+
 /* 弹窗样式 */
 .mask{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;justify-content:center;align-items:center;}
 .pay-box{background:#fff;padding:30px 20px;border-radius:16px;width:90%;max-width:350px;text-align:center;}
 .pay-box img{width:200px;height:200px;margin:10px auto;display:block;border-radius:8px;object-fit:cover;}
 .pay-box h3{margin-bottom:10px;}
-.pay-box .price-tip{font-size:18px;color:#e53e3e;font-weight:bold;margin:10px 0;}
+.pay-box .price-tip{font-size:18px;font-weight:bold;margin:10px 0;}
+.pay-box .price-tip s{color:#999;}
+.pay-box .price-tip span:last-child{color:#ea580c;margin-left:10px;}
 .pay-box .desc{font-size:14px;color:#666;margin-bottom:15px;}
 .pay-box .btn-pay{margin-top:16px;background:#2563eb;color:#fff;padding:12px;border-radius:8px;width:100%;border:none;font-size:16px;cursor:pointer;}
 .pay-box .close{margin-top:10px;color:#666;font-size:14px;cursor:pointer;}
@@ -321,13 +298,13 @@ animation:numFlash 0.6s ease;
     </div>
   </section>
 
-      <!-- UNIQUE 四个独家设计 四卡横向并排 -->
+  <!-- UNIQUE -->
   <section class="section">
     <h2>四个<span class="accent">独家设计</span></h2>
-    <div class="unique-grid" style="grid-template-columns:repeat(4,1fr);gap:20px;">
+    <div class="unique-grid">
       <div class="unique-card">
         <div class="num">1</div>
-        <h3>手机端大字表单 · 全网唯一</h3>
+        <h3>手机端友好 · 原创独家</h3>
         <p>高频录入场景全部采用<strong>侧边栏导航 + 全宽表单</strong>：左侧六阶段按钮（像 App 底部导航），右侧字段纵向排布、字号舒适，单手 3 秒完成。</p>
         <p style="font-weight:600;color:#1d4ed8;">不是"能用"，是"想打开用"。</p>
       </div>
@@ -336,6 +313,7 @@ animation:numFlash 0.6s ease;
         <h3>自然语言一句话，系统自动理解</h3>
         <p>在时光机备注里写自然语言，AI 自动解析、写入对应数据库、更新仪表盘。</p>
         <div class="demo">"续费 ChatGPT 月费 144"<br>"练琴 BPM 80→92，错 3 次"<br>"和家人吵架，情绪 8 分"</div>
+        <p style="font-size:12px;color:#9ca3af;margin-top:10px;">（Pro 版包含此增值功能）</p>
       </div>
       <div class="unique-card">
         <div class="num">3</div>
@@ -344,9 +322,9 @@ animation:numFlash 0.6s ease;
       </div>
       <div class="unique-card">
         <div class="num">4</div>
-        <h3>创新日记</h3>
-        <p>翻牌子写日记，认知负担最小化。选择题问答，降低了「我不知道今天写什么」的启动阻力。</p>
-        <p>一键式切换清单，解决了既要又要的选择疲劳。</p>
+        <h3>创新日记 · 翻牌子写日记</h3>
+        <p>认知负担最小化，采用选择题问答模式，降低了「我不知道今天写什么」的启动阻力。</p>
+        <p>支持一键式切换清单，解决了既要又要的选择疲劳。</p>
       </div>
     </div>
   </section>
@@ -374,10 +352,13 @@ animation:numFlash 0.6s ease;
     </div>
   </section>
 
-    <!-- MORE SCREENSHOTS 更多界面细节：上一目全览，下ikigai -->
+  <!-- MORE SCREENSHOTS：上一目全览，下ikigai -->
   <section class="section">
     <h2>更多<span class="accent">界面细节</span></h2>
 
+    <div style="text-align:center;margin-bottom:16px;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E7%9B%AE%E5%85%A8%E8%A7%88.png" alt="一目全览" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    </div>
     <div style="text-align:center;">
       <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/ikiga.png" alt="Ikigai" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     </div>
@@ -426,19 +407,18 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('xl', 138)">立即购买 </button>
+      <button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 ¥138</button>
     </div>
 
     <!-- 标准版 -->
     <div class="card recommended">
       <div class="badge">最受欢迎</div>
       <h3 class="card-title">🔵 标准版</h3>
-      <p class="card-tag highlight">海外同版本 $29</p>
       <p class="card-text">效率版全部功能 +<br><strong>聚焦痛点 · 刻意练习</strong></p>
       <ul class="card-features">
         <li>聚焦痛点（六步闭环 + 独家侧边栏表单）</li>
         <li>刻意练习馆（技能习得追踪）</li>
-        <li>Ikigai 存在意义体系（含于效率版）</li>
+        <li>Ikigai 存在意义体系（热情 / 天赋 / 使命 / 职业）</li>
       </ul>
       <div class="price">¥199</div>
       <div class="price-note">一次购买，永久使用</div>
@@ -446,19 +426,18 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('bz', 199)">立即购买</button>
+      <button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 ¥199</button>
     </div>
 
     <!-- Pro版 -->
     <div class="card">
       <h3 class="card-title">🟣 Pro 版</h3>
-      <p class="card-tag highlight">海外同版本 $69</p>
       <p class="card-text">标准版全部功能 +<br><strong>视角切换 · 思考洞见 · 高密度人生 · 关系审视</strong></p>
       <ul class="card-features">
         <li>视角切换（情绪认知重构 / 副本视角）</li>
-        <li>思考洞见（书摘 → 原则 → 可执行行动）</li>
-        <li>高密度人生（时间密度分析）</li>
-        <li>关系审视（重要关系能量审计）</li>
+        <li>思考洞见（ 原则 → 可执行行动）</li>
+        <li>高密度人生（沉淀可复用的经验资产与“避坑清单”）</li>
+        <li>关系审视（看清关系中的自己和他人）</li>
       </ul>
       <div class="price">¥499</div>
       <div class="price-note">含终身更新</div>
@@ -466,7 +445,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥299</span><span class="ep-strike">¥499</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('pro', 499)">立即购买</button>
+      <button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 ¥299</button>
     </div>
 
   </div>
@@ -481,7 +460,7 @@ animation:numFlash 0.6s ease;
           <tr><th>你正在买的</th><th>如果拆成单独产品</th><th>市场价</th></tr>
         </thead>
         <tbody>
-          <tr><td>Lite 版（时光机 + OKR + 仪表盘）</td><td>时间追踪 App + 目标管理模板</td><td>¥158</td></tr>
+          <tr><td>效率版（时光机 + OKR + 仪表盘）</td><td>时间追踪 App + 目标管理模板</td><td>¥158</td></tr>
           <tr><td>标准版（+ 聚焦痛点 + 刻意练习）</td><td>问题解决方法论课 + 技能习得训练营</td><td>¥498</td></tr>
           <tr><td>Pro 版（+ 视角切换 + 思考洞见 + 高密度人生 + 关系审视）</td><td>情绪管理课 + 认知升级训练营 + 人际关系咨询</td><td>¥1598</td></tr>
         </tbody>
@@ -502,7 +481,7 @@ animation:numFlash 0.6s ease;
     <div class="faq-list">
       <div class="faq-item">
         <p class="faq-q">我买了之后不会用怎么办？</p>
-        <p class="faq-a">只要你能理解中文，内置使用说明，打开就会用。另外可以随时提交问题反馈表，每周答疑，有问必答。</p>
+        <p class="faq-a">Lite 版完全不需要教程，内置使用说明，打开就会用。标准版/Pro 版含《洞见锦囊》视频课，每期 3–5 分钟，讲一个具体场景怎么用，用到哪看到哪。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">我已经买了 PARA / Second Brain / 其他全能模板，还需要这个吗？</p>
@@ -510,15 +489,15 @@ animation:numFlash 0.6s ease;
       </div>
       <div class="faq-item">
         <p class="faq-q">Pro 版含终身更新，后面会涨价吗？</p>
-        <p class="faq-a">会。每新增一个核心模块，价格会上调一次。早期购买锁定终身更新权。</p>
+        <p class="faq-a">会。每新增一个核心模块 + 视频课，价格会上调一次。早期购买锁定终身更新权。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">手机体验和电脑体验一样吗？</p>
-        <p class="faq-a">不一样。手机是<strong>录入优先</strong>，电脑是<strong>复盘优先</strong>。我们专门为手机重新设计了录入界面。</p>
+        <p class="faq-a">不一样。手机是<strong>录入优先</strong>，电脑是<strong>复盘优先</strong>。我们专门为手机重新设计了录入界面，这是绝大多数 Notion 模板没做的。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">可以商用/转卖/分享给朋友吗？</p>
-        <p class="faq-a">个人使用不限设备。商用（转卖、作为公司内训材料）需联系授权。请支持独立创作者。</p>
+        <p class="faq-a">个人使用不限设备。商用（转卖、作为公司内训材料）需联系授权。分享链接给朋友会导致链接被封，请支持独立创作者。</p>
       </div>
     </div>
   </section>
@@ -532,17 +511,26 @@ animation:numFlash 0.6s ease;
     <p class="tagline">如果你想理解自己——这个系统为你而建。</p>
   </section>
 
-  <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持微信支付</p>
+  <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持支付宝 / 微信支付</p>
   <p class="footer-note" style="margin-top:16px;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb;padding-top:16px;">© 活在当下 Life OS · 版权所有<br>本产品内容及设计已依法申请著作权登记保护。未经授权，禁止复制、仿制、转售或以任何形式传播本产品内容。<br>侵权行为将依据《中华人民共和国著作权法》及相关法律追究法律责任，情节严重者将移送司法机关处理。</p>
 
 </div>
 
-<!-- 扫码付款弹窗 -->
+</div>
+
+</div>
+
+</div>
+
+<!-- 扫码付款弹窗（通用版，自动切换价格） -->
 <div class="mask" id="mask">
 <div class="pay-box">
 <h3>请扫码支付</h3>
-<div class="price-tip" id="showPrice"></div>
-<div class="desc">企业微信收款，认准对应版本金额</div>
+<div class="price-tip" id="showPrice">
+  <span id="fullPrice">¥199</span> <!-- 默认显示标准版原价 -->
+  <span id="salePrice">早鸟价 ¥99</span> <!-- 默认显示标准版早鸟价 -->
+</div>
+<div class="desc">企业微信收款，认准对应版本金额<br>💡 直接扫码付原价，加客服微信领专属早鸟价</div>
 <img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="企业微信收款码">
 <p>付款完成后，点击下方按钮进入专属客户群领取模板</p>
 <button class="btn-pay" onclick="joinGroup()">我已付款，联系客服发货</button>
@@ -553,9 +541,20 @@ animation:numFlash 0.6s ease;
 <script>
 const groupLink = "https://work.weixin.qq.com/ca/cawcde3aec710217c7";
 
-function openPay(type, price){
-document.getElementById("showPrice").innerText = "¥" + price;
-document.getElementById("mask").style.display = "flex";
+function openPay(type, fullPrice){
+  // 手动指定正确的早鸟价，不再自动算半价
+  let salePrice;
+  if (fullPrice === 138) {
+    salePrice = 69; // 效率版早鸟价
+  } else if (fullPrice === 199) {
+    salePrice = 99; // 标准版早鸟价
+  } else if (fullPrice === 499) {
+    salePrice = 299; // Pro版早鸟价
+  }
+  // 显示原价（划线）和正确的早鸟价
+  document.getElementById("fullPrice").innerHTML = `<s>¥${fullPrice}</s>`;
+  document.getElementById("salePrice").innerText = `早鸟价 ¥${salePrice}`;
+  document.getElementById("mask").style.display = "flex";
 }
 function closeMask(){
 document.getElementById("mask").style.display = "none";
