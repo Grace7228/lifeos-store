@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>活在当下 Life OS</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
@@ -138,13 +138,39 @@ text-align:center;
 .early-price{background:#fff7ed;border:1px dashed #fb923c;border-radius:8px;padding:10px 12px;margin-bottom:18px;font-size:13px;color:#9a3412;}
 .early-price .ep-amount{font-size:20px;font-weight:700;color:#ea580c;}
 .early-price .ep-strike{text-decoration:line-through;color:#999;margin-left:8px;font-size:15px;font-weight:500;}
-.btn{display:block;width:100%;text-decoration:none;padding:14px 0;border-radius:10px;font-size:15px;font-weight:500;transition:background 0.2s;border:none;cursor:pointer;margin-bottom:8px;}
-.btn.primary{background:#ea580c;color:#fff;}
-.btn.primary:hover{background:#c2410c;}
-.btn.secondary{background:#fff;color:#666;border:1px solid #d1d5db;font-size:13px;padding:10px 0;}
-.btn.secondary:hover{background:#f9fafb;color:#1a1a1a;}
-.footer-note{text-align:center;margin-top:40px;font-size:13px;color:#999;line-height:1.8;}
-
+.btn{
+  display:block;
+  width:100%;
+  text-decoration:none;
+  padding:14px 0;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:500;
+  transition:background 0.2s;
+  border:none;
+  cursor:pointer;
+  margin-bottom:8px;
+}
+/* 加微信领早鸟价：灰色按钮 */
+.btn.primary{
+  background:#9ca3af;
+  color:#ffffff;
+}
+.btn.primary:hover{
+  background:#6b7280;
+}
+/* 立即购买：蓝色按钮 */
+.btn.secondary{
+  background:#2563eb;
+  color:#ffffff;
+  border:none;
+  font-size:13px;
+  padding:10px 0;
+}
+.btn.secondary:hover{
+  background:#1d4ed8;
+  color:#ffffff;
+}
 /* 弹窗样式 */
 .mask{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;justify-content:center;align-items:center;}
 .pay-box{background:#fff;padding:30px 20px;border-radius:16px;width:90%;max-width:350px;text-align:center;}
@@ -184,9 +210,7 @@ animation:blink 1.2s infinite;
 color:#dc2626;
 font-size:15px;
 font-family:'Courier New',monospace;
-display:inline-block;
-min-width:20px;
-text-align:center;
+display:inline-block;min-width:20px;text-align:center;
 }
 /* 名额减少时的闪烁效果 */
 .spots-left .num.flash {
@@ -297,10 +321,10 @@ animation:numFlash 0.6s ease;
     </div>
   </section>
 
-  <!-- UNIQUE -->
+      <!-- UNIQUE 四个独家设计 四卡横向并排 -->
   <section class="section">
-    <h2>三个独家设计，<span class="accent">别人抄不了</span></h2>
-    <div class="unique-grid">
+    <h2>四个<span class="accent">独家设计</span></h2>
+    <div class="unique-grid" style="grid-template-columns:repeat(4,1fr);gap:20px;">
       <div class="unique-card">
         <div class="num">1</div>
         <h3>手机端大字表单 · 全网唯一</h3>
@@ -312,38 +336,50 @@ animation:numFlash 0.6s ease;
         <h3>自然语言一句话，系统自动理解</h3>
         <p>在时光机备注里写自然语言，AI 自动解析、写入对应数据库、更新仪表盘。</p>
         <div class="demo">"续费 ChatGPT 月费 144"<br>"练琴 BPM 80→92，错 3 次"<br>"和家人吵架，情绪 8 分"</div>
-        <p style="font-size:12px;color:#9ca3af;margin-top:10px;">（Pro 版包含此增值功能）</p>
       </div>
       <div class="unique-card">
         <div class="num">3</div>
         <h3>深度哲学，不是浅层功能</h3>
         <p>• <strong>奥卡姆剃刀</strong>：如无必要，勿增实体<br>• <strong>存在主义</strong>：意义不是找出来的，是活出来的<br>• <strong>认知行为疗法</strong>：情绪不是敌人，是信号<br>• <strong>刻意练习</strong>：有目标、有反馈、走出舒适区</p>
       </div>
+      <div class="unique-card">
+        <div class="num">4</div>
+        <h3>创新日记</h3>
+        <p>翻牌子写日记，认知负担最小化。选择题问答，降低了「我不知道今天写什么」的启动阻力。</p>
+        <p>一键式切换清单，解决了既要又要的选择疲劳。</p>
+      </div>
     </div>
   </section>
 
-  <!-- PRODUCT SCREENSHOTS -->
+  <!-- PRODUCT SCREENSHOTS：左侧上下（聚焦痛点+视角）+ 右侧日志，下方3张并排 -->
   <section class="section">
     <h2>产品<span class="accent">实际界面</span></h2>
 
-    <!-- 第一行：当下（左小）+ 聚焦痛点/情绪表（右堆叠） -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+    <!-- 上半部分：左侧上下结构 + 右侧日志 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+      <!-- 左侧：上聚焦痛点，下视角 -->
       <div style="display:flex;flex-direction:column;gap:16px;">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%BD%93%E4%B8%8B.png" alt="当下 · 主界面" style="width:100%;border-radius:14px;object-fit:cover;max-height:280px;">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E9%AB%98%E5%AF%86%E5%BA%A6%E4%BA%BA%E7%94%9F.jpg" alt="高密度人生" style="width:100%;border-radius:14px;object-fit:cover;flex:1;">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%81%9A%E7%84%A6%E7%97%9B%E7%82%B9.png" alt="聚焦痛点" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%A7%86%E8%A7%92.jpg" alt="视角" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
       </div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%81%9A%E7%84%A6%E7%97%9B%E7%82%B9.png" alt="聚焦痛点" style="width:100%;border-radius:14px;object-fit:cover;flex:1;min-height:0;">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%83%85%E7%BB%AA%E8%A1%A8.png" alt="情绪表" style="width:100%;border-radius:14px;object-fit:cover;flex:1;min-height:0;">
-      </div>
+      <!-- 右侧：日志大图 -->
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%97%A5%E5%BF%97.png" alt="日志" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
     </div>
 
-    <!-- 小图网格：4列 -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+    <!-- 下半部分：3张并排（一目全览、打卡、理性购物） -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E7%9B%AE%E5%85%A8%E8%A7%88.png" alt="一目全览" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
       <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%89%93%E5%8D%A1.png" alt="打卡" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/ikiga.png" alt="Ikigai" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%A7%86%E8%A7%92.jpg" alt="视角" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
       <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E7%90%86%E6%80%A7%E8%B4%AD%E7%89%A9.png" alt="理性购物" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
+    </div>
+  </section>
+
+    <!-- MORE SCREENSHOTS 更多界面细节：上一目全览，下ikigai -->
+  <section class="section">
+    <h2>更多<span class="accent">界面细节</span></h2>
+
+    <div style="text-align:center;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/ikiga.png" alt="Ikigai" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     </div>
   </section>
 
@@ -390,7 +426,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 ¥138</button>
+      <button class="btn secondary" onclick="openPay('xl', 138)">立即购买 </button>
     </div>
 
     <!-- 标准版 -->
@@ -410,7 +446,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 ¥199</button>
+      <button class="btn secondary" onclick="openPay('bz', 199)">立即购买</button>
     </div>
 
     <!-- Pro版 -->
@@ -430,7 +466,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥299</span><span class="ep-strike">¥499</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 ¥499</button>
+      <button class="btn secondary" onclick="openPay('pro', 499)">立即购买</button>
     </div>
 
   </div>
@@ -454,9 +490,10 @@ animation:numFlash 0.6s ease;
     <p class="anchor-conclusion">三版本打包价，不到一个职业规划咨询的 1/5。</p>
   </section>
 
-  <!-- FAQ IMAGE -->
-  <div style="text-align:center;margin-bottom:40px;">
-    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8BLife%20OS.png" alt="活在当下 Life OS" style="max-width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  <!-- BRAND PAIR -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:56px;">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8B.png" alt="活在当下" style="width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8Blife%20os.png" alt="活在当下 Life OS" style="width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   </div>
 
   <!-- FAQ -->
@@ -465,7 +502,7 @@ animation:numFlash 0.6s ease;
     <div class="faq-list">
       <div class="faq-item">
         <p class="faq-q">我买了之后不会用怎么办？</p>
-        <p class="faq-a">Lite 版完全不需要教程，内置使用说明，打开就会用。标准版/Pro 版含《洞见锦囊》视频课，每期 3–5 分钟，讲一个具体场景怎么用，用到哪看到哪。</p>
+        <p class="faq-a">只要你能理解中文，内置使用说明，打开就会用。另外可以随时提交问题反馈表，每周答疑，有问必答。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">我已经买了 PARA / Second Brain / 其他全能模板，还需要这个吗？</p>
@@ -473,15 +510,15 @@ animation:numFlash 0.6s ease;
       </div>
       <div class="faq-item">
         <p class="faq-q">Pro 版含终身更新，后面会涨价吗？</p>
-        <p class="faq-a">会。每新增一个核心模块 + 视频课，价格会上调一次。早期购买锁定终身更新权。</p>
+        <p class="faq-a">会。每新增一个核心模块，价格会上调一次。早期购买锁定终身更新权。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">手机体验和电脑体验一样吗？</p>
-        <p class="faq-a">不一样。手机是<strong>录入优先</strong>，电脑是<strong>复盘优先</strong>。我们专门为手机重新设计了录入界面，这是绝大多数 Notion 模板没做的。</p>
+        <p class="faq-a">不一样。手机是<strong>录入优先</strong>，电脑是<strong>复盘优先</strong>。我们专门为手机重新设计了录入界面。</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">可以商用/转卖/分享给朋友吗？</p>
-        <p class="faq-a">个人使用不限设备。商用（转卖、作为公司内训材料）需联系授权。分享链接给朋友会导致链接被封，请支持独立创作者。</p>
+        <p class="faq-a">个人使用不限设备。商用（转卖、作为公司内训材料）需联系授权。请支持独立创作者。</p>
       </div>
     </div>
   </section>
@@ -495,7 +532,7 @@ animation:numFlash 0.6s ease;
     <p class="tagline">如果你想理解自己——这个系统为你而建。</p>
   </section>
 
-  <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持支付宝 / 微信支付</p>
+  <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持微信支付</p>
   <p class="footer-note" style="margin-top:16px;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb;padding-top:16px;">© 活在当下 Life OS · 版权所有<br>本产品内容及设计已依法申请著作权登记保护。未经授权，禁止复制、仿制、转售或以任何形式传播本产品内容。<br>侵权行为将依据《中华人民共和国著作权法》及相关法律追究法律责任，情节严重者将移送司法机关处理。</p>
 
 </div>
@@ -550,44 +587,32 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ====== 名额不规则递减 ======
-// 配置：今天(5/13)实际剩余83名，到6/30递减到0
-const START_SPOTS = 83;           // 今天(5/13)的实际剩余
+const START_SPOTS = 83;
 const START_DATE = new Date("2026-05-13T00:00:00+08:00");
 const DEADLINE_DATE = new Date("2026-06-30T23:59:59+08:00");
 
-// 每天的随机跌幅（基于日期seed，固定但看起来不规则）
 function dailyDrop(dayIndex) {
-  // 用正弦函数混合产生不规则但可复现的每日跌幅
   const seed = dayIndex * 2654435761;
   const r = Math.abs(Math.sin(seed) * 0.6 + Math.sin(seed * 1.7 + 3) * 0.3 + Math.sin(seed * 0.5 + 1) * 0.1);
-  // 每天跌 0 ~ 4 名，平均约 1.6 名（83名 / 50天 ≈ 1.66/天）
   return r * 4;
 }
 
 function getRemainingSpots() {
   const now = new Date();
   if (now >= DEADLINE_DATE) return 0;
-
   const totalDays = Math.ceil((DEADLINE_DATE - START_DATE) / (1000 * 60 * 60 * 24));
   const elapsedMs = now - START_DATE;
   if (elapsedMs <= 0) return START_SPOTS;
-
   const elapsedDays = elapsedMs / (1000 * 60 * 60 * 24);
-  const dayIndex = Math.floor(elapsedDays); // 已过整天数
-  const dayFrac = elapsedDays - dayIndex;   // 当天已过比例
-
-  // 累计已过去整天的跌幅（归一化到总跌幅 = START_SPOTS）
-  // 先算每天跌幅原始值之和
+  const dayIndex = Math.floor(elapsedDays);
+  const dayFrac = elapsedDays - dayIndex;
   let rawTotal = 0;
   for (let i = 0; i < totalDays; i++) rawTotal += dailyDrop(i);
-
   let dropped = 0;
   for (let i = 0; i < dayIndex; i++) {
     dropped += dailyDrop(i) / rawTotal * START_SPOTS;
   }
-  // 加上今天已过的部分
   dropped += (dailyDrop(dayIndex) / rawTotal * START_SPOTS) * dayFrac;
-
   return Math.max(0, Math.round(START_SPOTS - dropped));
 }
 
@@ -595,7 +620,6 @@ function updateSpots() {
 const spots = getRemainingSpots();
 const el = document.getElementById("spots-num");
 const current = parseInt(el.innerText) || spots;
-
 if (current !== spots) {
 el.classList.add("flash");
 setTimeout(() => el.classList.remove("flash"), 600);
