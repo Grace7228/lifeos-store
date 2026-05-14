@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>活在当下 Life OS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+body{background:#f8f9fa;padding:60px 20px;color:#1a1a1a;line-height:1.6;}
+.container{max-width:1100px;margin:0 auto;}
+
+/* HERO */
+.hero{text-align:center;padding:50px 20px 40px;background:#fff;border-radius:20px;margin-bottom:36px;border:1px solid #e5e7eb;}
+.hero .eyebrow{display:inline-block;background:#fef3c7;color:#92400e;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px;}
+.hero h1{font-size:34px;font-weight:800;line-height:1.4;color:#1a1a1a;margin-bottom:18px;}
+.hero .tagline{font-size:17px;color:#444;font-weight:500;}
+.hero-price-hint{display:inline-flex;align-items:center;gap:6px;margin-top:24px;background:#fef3c7;border:1px solid #fbbf24;color:#92400e;padding:8px 18px;border-radius:24px;font-size:13px;font-weight:600;flex-wrap:wrap;justify-content:center;}
+.hero-price-hint strong{color:#dc2626;font-size:15px;}
+
+/* INTRO QUOTE */
+.intro-quote{background:#fff;border-left:4px solid #2563eb;padding:26px 30px;border-radius:8px;margin-bottom:50px;font-size:15px;line-height:1.85;color:#374151;}
+.intro-quote p{margin-bottom:8px;}
+.intro-quote p:last-child{margin-bottom:0;}
+.intro-quote strong{color:#1a1a1a;}
+
+/* SECTION */
+.section{margin-bottom:56px;}
+.section h2{font-size:26px;font-weight:700;text-align:center;margin-bottom:28px;color:#1a1a1a;}
+.section h2 .accent{color:#2563eb;}
+
+/* COMPARISON TABLE */
+.compare-table{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;}
+.compare-table table{width:100%;border-collapse:collapse;}
+.compare-table th{background:#f3f4f6;padding:16px;text-align:left;font-weight:600;color:#1a1a1a;font-size:14px;}
+.compare-table th:last-child{background:#eff6ff;color:#1d4ed8;}
+.compare-table td{padding:14px 16px;border-top:1px solid #e5e7eb;font-size:14px;color:#374151;}
+.compare-table td:last-child{background:#fafbff;color:#1a1a1a;font-weight:500;}
+
+/* PROBLEM */
+.problem-intro{text-align:center;color:#6b7280;margin-bottom:20px;font-size:15px;}
+.problem-list{background:#fff;border-radius:16px;padding:22px 28px;border:1px solid #e5e7eb;list-style:none;}
+.problem-list li{padding:8px 0 8px 30px;position:relative;color:#374151;font-size:15px;line-height:1.7;}
+.problem-list li::before{content:"✓";position:absolute;left:0;top:8px;width:20px;height:20px;background:#dcfce7;color:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.problem-insight{margin-top:22px;background:#fffbeb;border:1px solid #fbbf24;border-radius:10px;padding:16px 20px;text-align:center;color:#78350f;font-weight:600;font-size:15px;}
+
+/* MECHANISM */
+.mechanism{background:linear-gradient(135deg,#eff6ff 0%,#fdf4ff 100%);border-radius:20px;padding:36px;border:1px solid #e0e7ff;}
+.mechanism .lead{text-align:center;font-weight:600;color:#1a1a1a;margin-bottom:8px;}
+.mechanism .flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;background:#fff;border-radius:12px;padding:18px;margin:14px 0 20px;font-size:14px;}
+.mechanism .flow .step{background:#eff6ff;color:#1d4ed8;padding:8px 14px;border-radius:8px;font-weight:600;}
+.mechanism .flow .arrow{color:#9ca3af;font-weight:700;}
+.mechanism h3{font-size:17px;margin:18px 0 10px;color:#1a1a1a;}
+.mechanism ul{list-style:none;padding:0;}
+.mechanism ul li{padding:6px 0;color:#374151;font-size:14px;line-height:1.7;}
+.mechanism ul li::before{content:"→ ";color:#2563eb;font-weight:700;}
+.mechanism .conclusion{margin-top:20px;text-align:center;font-size:16px;font-weight:600;color:#1d4ed8;}
+
+/* PRICING HEADER */
+.pricing-header{text-align:center;margin-bottom:24px;}
+.pricing-header h2{font-size:28px;font-weight:700;color:#1a1a1a;margin-bottom:10px;}
+.pricing-header p{color:#666;font-size:15px;}
+
+.early-bird-banner{background:#fef3c7;border:1px solid #fbbf24;color:#92400e;padding:16px 20px;border-radius:10px;text-align:center;font-size:14px;margin:0 auto 30px;max-width:640px;}
+.early-bird-banner strong{color:#b45309;}
+.countdown{
+display:inline-block;
+background:#fff;
+color:#b45309;
+padding:6px 14px;
+border-radius:6px;
+font-size:14px;
+font-family:'Courier New',monospace;
+margin-top:10px;
+font-weight:700;
+letter-spacing:1px;
+border:1px solid #fbbf24;
+}
+.countdown span{
+color:#dc2626;
+font-size:16px;
+display:inline-block;
+min-width:24px;
+text-align:center;
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;align-items:stretch;}
+.card-features{text-align:left;list-style:none;margin:0 0 20px;padding:0;}
+.card-features li{font-size:13px;color:#555;padding:5px 0 5px 16px;position:relative;line-height:1.5;}
+.card-features li::before{content:"•";color:#2563eb;font-weight:700;position:absolute;left:2px;}
+
+/* UNIQUE */
+.unique-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+.unique-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:28px 24px;}
+.unique-card .num{display:inline-block;width:36px;height:36px;background:#1a1a1a;color:#fff;border-radius:50%;text-align:center;line-height:36px;font-weight:700;margin-bottom:14px;font-size:15px;}
+.unique-card h3{font-size:17px;font-weight:700;margin-bottom:10px;color:#1a1a1a;}
+.unique-card p{font-size:14px;color:#4b5563;line-height:1.75;margin-bottom:10px;}
+.unique-card .demo{background:#f9fafb;border-radius:8px;padding:10px 12px;font-size:13px;color:#374151;font-family:'Courier New',monospace;margin-top:10px;line-height:1.7;}
+
+/* FAQ */
+.faq-list{background:#fff;border-radius:16px;border:1px solid #e5e7eb;overflow:hidden;}
+.faq-item{padding:22px 26px;border-top:1px solid #f3f4f6;}
+.faq-item:first-child{border-top:none;}
+.faq-q{font-weight:700;color:#1a1a1a;margin-bottom:8px;font-size:15px;}
+.faq-q::before{content:"Q：";color:#2563eb;}
+.faq-a{color:#4b5563;font-size:14px;line-height:1.75;}
+.faq-a::before{content:"A：";color:#16a34a;font-weight:700;}
+
+/* PRICE ANCHOR */
+.anchor-table{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;}
+.anchor-table table{width:100%;border-collapse:collapse;}
+.anchor-table th{background:#f3f4f6;padding:14px;text-align:left;font-weight:600;color:#1a1a1a;font-size:13px;}
+.anchor-table td{padding:14px;border-top:1px solid #e5e7eb;font-size:13px;color:#374151;}
+.anchor-table td:last-child{color:#dc2626;font-weight:700;}
+.anchor-conclusion{margin-top:20px;text-align:center;font-size:16px;font-weight:700;color:#1a1a1a;background:#fffbeb;padding:18px;border-radius:10px;border:1px solid #fbbf24;}
+
+/* CLOSING */
+.closing{background:linear-gradient(135deg,#1a1a1a 0%,#374151 100%);color:#fff;border-radius:20px;padding:50px 40px;text-align:center;}
+.closing p{font-size:16px;line-height:1.85;margin-bottom:14px;color:#e5e7eb;}
+.closing strong{color:#fff;}
+.closing .tagline{font-size:18px;font-weight:700;color:#fbbf24;margin-top:16px;}
+
+@media (max-width:640px){
+.hero h1{font-size:26px;}
+.section h2{font-size:22px;}
+.closing{padding:36px 22px;}
+}
+
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:16px;padding:40px 26px 32px;text-align:center;transition:all 0.3s;position:relative;display:flex;flex-direction:column;}
+.card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,0.05);}
+.card.recommended{border:2px solid #2563eb;}
+.badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#2563eb;color:#fff;font-size:12px;padding:5px 18px;border-radius:20px;white-space:nowrap;}
+.card-title{font-size:24px;font-weight:600;color:#1a1a1a;margin-bottom:10px;}
+.card-tag{font-size:12px;color:#999;margin-bottom:18px;letter-spacing:0.5px;}
+.card-tag.highlight{color:#2563eb;font-weight:500;}
+.card-text{font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;min-height:72px;flex-grow:1;}
+.card-text strong{color:#1a1a1a;}
+.price{font-size:36px;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
+.price-note{font-size:13px;color:#999;margin-bottom:14px;}
+.early-price{background:#fff7ed;border:1px dashed #fb923c;border-radius:8px;padding:10px 12px;margin-bottom:18px;font-size:13px;color:#9a3412;}
+.early-price .ep-amount{font-size:20px;font-weight:700;color:#ea580c;}
+.early-price .ep-strike{text-decoration:line-through;color:#999;margin-left:8px;font-size:15px;font-weight:500;}
+.btn{
+  display:block;
+  width:100%;
+  text-decoration:none;
+  padding:14px 0;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:500;
+  transition:background 0.2s;
+  border:none;
+  cursor:pointer;
+  margin-bottom:8px;
+}
+/* 加微信领早鸟价：灰色按钮 */
+.btn.primary{
+  background:#9ca3af;
+  color:#ffffff;
+}
+.btn.primary:hover{
+  background:#6b7280;
+}
+/* 立即购买：蓝色按钮 */
+.btn.secondary{
+  background:#2563eb;
+  color:#ffffff;
+  border:none;
+  font-size:13px;
+  padding:10px 0;
+}
+.btn.secondary:hover{
+  background:#1d4ed8;
+  color:#ffffff;
+}
+/* 弹窗样式 */
+.mask{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;justify-content:center;align-items:center;}
+.pay-box{background:#fff;padding:30px 20px;border-radius:16px;width:90%;max-width:350px;text-align:center;}
+.pay-box img{width:200px;height:200px;margin:10px auto;display:block;border-radius:8px;object-fit:cover;}
+.pay-box h3{margin-bottom:10px;}
+.pay-box .price-tip{font-size:18px;color:#e53e3e;font-weight:bold;margin:10px 0;}
+.pay-box .desc{font-size:14px;color:#666;margin-bottom:15px;}
+.pay-box .btn-pay{margin-top:16px;background:#2563eb;color:#fff;padding:12px;border-radius:8px;width:100%;border:none;font-size:16px;cursor:pointer;}
+.pay-box .close{margin-top:10px;color:#666;font-size:14px;cursor:pointer;}
+
+/* 剩余名额 */
+.spots-left {
+display:inline-flex;
+align-items:center;
+gap:6px;
+background:#fff;
+border:1px solid #fbbf24;
+padding:4px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:700;
+margin-left:8px;
+}
+.spots-left .dot {
+width:8px;
+height:8px;
+background:#dc2626;
+border-radius:50%;
+display:inline-block;
+animation:blink 1.2s infinite;
+}
+@keyframes blink {
+0%,100%{opacity:1;}
+50%{opacity:0.3;}
+}
+.spots-left .num {
+color:#dc2626;
+font-size:15px;
+font-family:'Courier New',monospace;
+display:inline-block;min-width:20px;text-align:center;
+}
+/* 名额减少时的闪烁效果 */
+.spots-left .num.flash {
+animation:numFlash 0.6s ease;
+}
+@keyframes numFlash {
+0%{color:#dc2626;transform:scale(1);}
+25%{color:#b91c1c;transform:scale(1.4);}
+100%{color:#dc2626;transform:scale(1);}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">活在当下 · Life OS</span>
+    <h1>你不是缺模板，<br>是缺一个能追问你为什么拖延的系统</h1>
+    <p class="tagline">大部分 Notion 模板教你"记下来"，这个系统帮你"想明白"。</p>
+    <div class="hero-price-hint">💡 早鸟价 <strong>¥69</strong> 起 · 限前 100 名 · <strong>已有 <span id="hero-sold">--</span> 人入手</strong></div>
+  </section>
+
+  <!-- HERO IMAGE -->
+  <div style="text-align:center;margin:-10px 0 36px;">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E9%A6%96%E9%A1%B5.png" alt="产品界面预览" style="max-width:900px;width:100%;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+  </div>
+
+  <!-- INTRO QUOTE -->
+  <section class="intro-quote">
+    <p><strong>市面上大多数功能型模板，几十个数据库、上百个视图，功能堆到天花板。</strong></p>
+    <p><strong>但 90% 的人买了，用两天，放弃。</strong></p>
+    <p>不是模板不好，是你根本不想每天打开 8 个页面填 20 个字段。</p>
+    <p><strong>这个系统反着来：只有一个入口，但能看到别人看不到的东西。</strong></p>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="section">
+    <h2>一句话讲清<span class="accent">区别</span></h2>
+    <div class="compare-table">
+      <table>
+        <thead>
+          <tr><th>大多数功能型模板</th><th>活在当下 Life OS（认知型模板）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>帮你"管理信息"</td><td>帮你"认识自己"</td></tr>
+          <tr><td>几十个入口，记完就忘</td><td>1 个入口，全自动分流</td></tr>
+          <tr><td>手机打开密密麻麻小字</td><td>侧边栏大字表单，单手 3 秒填完</td></tr>
+          <tr><td>买功能是买功能</td><td>买哲学是买可执行的人生操作系统</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- INFO GRAPHIC -->
+  <div style="text-align:center;margin-bottom:40px;">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%8B%92%E7%BB%9D%E6%95%B0%E5%AD%97%E5%86%85%E8%80%97%E6%96%B9%E6%A1%88%E4%BF%A1%E6%81%AF%E5%9B%BE.png" alt="拒绝数字内耗方案信息图" style="max-width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <h2>这个系统解决<span class="accent">什么问题？</span></h2>
+    <p class="problem-intro">如果你符合以下任意一条，这个系统就是为你设计的：</p>
+    <ul class="problem-list">
+      <li>买过 2 套以上功能型 Notion 模板，现在全在仓库里吃灰</li>
+      <li>收藏了 GTD/PARA/OKR 教程，但每天早上还是不知道先干嘛</li>
+      <li>知道自己该做某件事，但不知道为什么就是动不起来</li>
+      <li>情绪来了只能憋着，或者发泄完更后悔</li>
+      <li>学了钢琴/英语/健身，三个月热度，然后放弃</li>
+      <li>记账记了三天，第四天嫌麻烦就不记了</li>
+    </ul>
+    <div class="problem-insight">💡 核心洞察：你不是执行力差，是你的系统太复杂，耗尽了你的启动能量。</div>
+  </section>
+
+  <!-- MECHANISM -->
+  <section class="section">
+    <h2>核心机制：<span class="accent">时光机 · 单点录入</span></h2>
+    <div class="mechanism">
+      <p class="lead">每天只要做一件事：</p>
+      <div class="flow">
+        <span class="step">点击"开始"</span>
+        <span class="arrow">→</span>
+        <span class="step">选标签</span>
+        <span class="arrow">→</span>
+        <span class="step">首次任务勾选</span>
+        <span class="arrow">→</span>
+        <span class="step">备注栏记录经过与感想</span>
+        <span class="arrow">→</span>
+        <span class="step">点击"结束"</span>
+      </div>
+      <h3>系统自动帮你：</h3>
+      <ul>
+        <li>算时长、分类型、进仪表盘</li>
+        <li>关联到月度计划、季度复盘、年度目标</li>
+        <li>练琴/跑步/学习 → 自动进"习惯打卡"追踪进度</li>
+        <li>情绪波动 → 去"视角切换"进行拆解</li>
+        <li>花钱/赚钱 → 自动进"财务账簿"算收支</li>
+      </ul>
+      <p class="conclusion">不是"少了一个入口"，是"所有入口都长在一个动作里"。</p>
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%BD%93%E4%B8%8B.png" alt="当下界面" style="width:100%;border-radius:10px;">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E9%80%9F%E8%AE%B0%E5%BD%95%E5%85%A8%E5%B1%80%E8%81%94%E5%8A%A8.jpg" alt="全局联动" style="width:100%;border-radius:10px;">
+      </div>
+      <div style="margin-top:16px;text-align:center;">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%9B%BE%E8%A1%A8.png" alt="仪表盘图表" style="max-width:100%;border-radius:10px;">
+      </div>
+    </div>
+  </section>
+
+      <!-- UNIQUE 四个独家设计 四卡横向并排 -->
+  <section class="section">
+    <h2>四个<span class="accent">独家设计</span></h2>
+    <div class="unique-grid" style="grid-template-columns:repeat(4,1fr);gap:20px;">
+      <div class="unique-card">
+        <div class="num">1</div>
+        <h3>手机端大字表单 · 全网唯一</h3>
+        <p>高频录入场景全部采用<strong>侧边栏导航 + 全宽表单</strong>：左侧六阶段按钮（像 App 底部导航），右侧字段纵向排布、字号舒适，单手 3 秒完成。</p>
+        <p style="font-weight:600;color:#1d4ed8;">不是"能用"，是"想打开用"。</p>
+      </div>
+      <div class="unique-card">
+        <div class="num">2</div>
+        <h3>自然语言一句话，系统自动理解</h3>
+        <p>在时光机备注里写自然语言，AI 自动解析、写入对应数据库、更新仪表盘。</p>
+        <div class="demo">"续费 ChatGPT 月费 144"<br>"练琴 BPM 80→92，错 3 次"<br>"和家人吵架，情绪 8 分"</div>
+      </div>
+      <div class="unique-card">
+        <div class="num">3</div>
+        <h3>深度哲学，不是浅层功能</h3>
+        <p>• <strong>奥卡姆剃刀</strong>：如无必要，勿增实体<br>• <strong>存在主义</strong>：意义不是找出来的，是活出来的<br>• <strong>认知行为疗法</strong>：情绪不是敌人，是信号<br>• <strong>刻意练习</strong>：有目标、有反馈、走出舒适区</p>
+      </div>
+      <div class="unique-card">
+        <div class="num">4</div>
+        <h3>创新日记</h3>
+        <p>翻牌子写日记，认知负担最小化。选择题问答，降低了「我不知道今天写什么」的启动阻力。</p>
+        <p>一键式切换清单，解决了既要又要的选择疲劳。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SCREENSHOTS：左侧上下（聚焦痛点+视角）+ 右侧日志，下方3张并排 -->
+  <section class="section">
+    <h2>产品<span class="accent">实际界面</span></h2>
+
+    <!-- 上半部分：左侧上下结构 + 右侧日志 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+      <!-- 左侧：上聚焦痛点，下视角 -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%81%9A%E7%84%A6%E7%97%9B%E7%82%B9.png" alt="聚焦痛点" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%A7%86%E8%A7%92.jpg" alt="视角" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+      </div>
+      <!-- 右侧：日志大图 -->
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%97%A5%E5%BF%97.png" alt="日志" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+    </div>
+
+    <!-- 下半部分：3张并排（一目全览、打卡、理性购物） -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E7%9B%AE%E5%85%A8%E8%A7%88.png" alt="一目全览" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%89%93%E5%8D%A1.png" alt="打卡" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E7%90%86%E6%80%A7%E8%B4%AD%E7%89%A9.png" alt="理性购物" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
+    </div>
+  </section>
+
+    <!-- MORE SCREENSHOTS 更多界面细节：上一目全览，下ikigai -->
+  <section class="section">
+    <h2>更多<span class="accent">界面细节</span></h2>
+
+    <div style="text-align:center;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/ikiga.png" alt="Ikigai" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    </div>
+  </section>
+
+  <!-- PRICING HEADER -->
+  <div class="pricing-header">
+    <h2>三版本对比 · 选择适合你的</h2>
+    <p>Notion 个人管理系统｜把目标、习惯、任务和生活节奏放进一个系统</p>
+  </div>
+
+  <div class="early-bird-banner">
+    🌱 <strong>年中复盘 · 开张早鸟价</strong>
+    <span class="spots-left"><span class="dot"></span>限前 100 名 · 仅剩 <span class="num" id="spots-num">87</span> 名</span>
+    <br>6/30 截止，加微信领半价
+    <div style="margin:16px 0 8px;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%90%AF%E5%8A%A8%E4%BB%B7%2069.png" alt="早鸟启动价" style="max-width:400px;width:100%;border-radius:10px;">
+    </div>
+    <div class="countdown">
+      ⏰ 活动倒计时
+      <span id="cd-days">--</span> 天
+      <span id="cd-hours">--</span> :
+      <span id="cd-mins">--</span> :
+      <span id="cd-secs">--</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 效率版 -->
+    <div class="card">
+      <h3 class="card-title">🟢 效率版</h3>
+      <p class="card-tag">轻量入门</p>
+      <p class="card-text">核心执行闭环<br><strong>时光机 · OKR · 日志 · Ikigai 意义体系</strong></p>
+      <ul class="card-features">
+        <li>时光机（单点录入 + 自动统计）</li>
+        <li>To do 清单（与时光机联动）</li>
+        <li>月度计划 / 周复盘</li>
+        <li>OKR 季度目标追踪</li>
+        <li>基础仪表盘（时间分布 + 完成度）</li>
+        <li>Ikigai 存在意义体系（追问流程）</li>
+      </ul>
+      <div class="price">¥138</div>
+      <div class="price-note">一次购买，永久使用</div>
+      <div class="early-price">
+        🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
+      </div>
+      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn secondary" onclick="openPay('xl', 138)">立即购买 </button>
+    </div>
+
+    <!-- 标准版 -->
+    <div class="card recommended">
+      <div class="badge">最受欢迎</div>
+      <h3 class="card-title">🔵 标准版</h3>
+      <p class="card-tag highlight">海外同版本 $29</p>
+      <p class="card-text">效率版全部功能 +<br><strong>聚焦痛点 · 刻意练习</strong></p>
+      <ul class="card-features">
+        <li>聚焦痛点（六步闭环 + 独家侧边栏表单）</li>
+        <li>刻意练习馆（技能习得追踪）</li>
+        <li>Ikigai 存在意义体系（含于效率版）</li>
+      </ul>
+      <div class="price">¥199</div>
+      <div class="price-note">一次购买，永久使用</div>
+      <div class="early-price">
+        🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
+      </div>
+      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn secondary" onclick="openPay('bz', 199)">立即购买</button>
+    </div>
+
+    <!-- Pro版 -->
+    <div class="card">
+      <h3 class="card-title">🟣 Pro 版</h3>
+      <p class="card-tag highlight">海外同版本 $69</p>
+      <p class="card-text">标准版全部功能 +<br><strong>视角切换 · 思考洞见 · 高密度人生 · 关系审视</strong></p>
+      <ul class="card-features">
+        <li>视角切换（情绪认知重构 / 副本视角）</li>
+        <li>思考洞见（书摘 → 原则 → 可执行行动）</li>
+        <li>高密度人生（时间密度分析）</li>
+        <li>关系审视（重要关系能量审计）</li>
+      </ul>
+      <div class="price">¥499</div>
+      <div class="price-note">含终身更新</div>
+      <div class="early-price">
+        🌱 早鸟价 <span class="ep-amount">¥299</span><span class="ep-strike">¥499</span>
+      </div>
+      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn secondary" onclick="openPay('pro', 499)">立即购买</button>
+    </div>
+
+  </div>
+  <p class="footer-note" style="margin-top:24px;margin-bottom:60px;">所有版本均为 Notion 模板一键复制 · 个人免费版即可使用<br>已购低版本用户可凭专属升级码补差价升级高档</p>
+
+  <!-- PRICE ANCHOR -->
+  <section class="section">
+    <h2>价格<span class="accent">锚点</span></h2>
+    <div class="anchor-table">
+      <table>
+        <thead>
+          <tr><th>你正在买的</th><th>如果拆成单独产品</th><th>市场价</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lite 版（时光机 + OKR + 仪表盘）</td><td>时间追踪 App + 目标管理模板</td><td>¥158</td></tr>
+          <tr><td>标准版（+ 聚焦痛点 + 刻意练习）</td><td>问题解决方法论课 + 技能习得训练营</td><td>¥498</td></tr>
+          <tr><td>Pro 版（+ 视角切换 + 思考洞见 + 高密度人生 + 关系审视）</td><td>情绪管理课 + 认知升级训练营 + 人际关系咨询</td><td>¥1598</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="anchor-conclusion">三版本打包价，不到一个职业规划咨询的 1/5。</p>
+  </section>
+
+  <!-- BRAND PAIR -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:56px;">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8B.png" alt="活在当下" style="width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%B4%BB%E5%9C%A8%E5%BD%93%E4%B8%8Blife%20os.png" alt="活在当下 Life OS" style="width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  </div>
+
+  <!-- FAQ -->
+  <section class="section">
+    <h2>常见<span class="accent">问题</span></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <p class="faq-q">我买了之后不会用怎么办？</p>
+        <p class="faq-a">只要你能理解中文，内置使用说明，打开就会用。另外可以随时提交问题反馈表，每周答疑，有问必答。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">我已经买了 PARA / Second Brain / 其他全能模板，还需要这个吗？</p>
+        <p class="faq-a">如果你正在用且用得顺手，不需要。如果你买了之后打开次数不超过 10 次，这个系统可能是你真正会坚持用的那一个。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Pro 版含终身更新，后面会涨价吗？</p>
+        <p class="faq-a">会。每新增一个核心模块，价格会上调一次。早期购买锁定终身更新权。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">手机体验和电脑体验一样吗？</p>
+        <p class="faq-a">不一样。手机是<strong>录入优先</strong>，电脑是<strong>复盘优先</strong>。我们专门为手机重新设计了录入界面。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">可以商用/转卖/分享给朋友吗？</p>
+        <p class="faq-a">个人使用不限设备。商用（转卖、作为公司内训材料）需联系授权。请支持独立创作者。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <p><strong>大多数模板卖的是"多"——功能多、数据库多、视图多。</strong></p>
+    <p>我们卖的是"<strong>深</strong>"——一套能追问你为什么拖延、为什么重复同样情绪、为什么知道该做却做不到的追问系统。</p>
+    <p style="font-style:italic;opacity:0.85;">深的东西天然卖得慢，但卖得久，且没有替代品。</p>
+    <p>如果你只想记记账、打打卡，请买别的。</p>
+    <p class="tagline">如果你想理解自己——这个系统为你而建。</p>
+  </section>
+
+  <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持微信支付</p>
+  <p class="footer-note" style="margin-top:16px;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb;padding-top:16px;">© 活在当下 Life OS · 版权所有<br>本产品内容及设计已依法申请著作权登记保护。未经授权，禁止复制、仿制、转售或以任何形式传播本产品内容。<br>侵权行为将依据《中华人民共和国著作权法》及相关法律追究法律责任，情节严重者将移送司法机关处理。</p>
+
+</div>
+
+<!-- 扫码付款弹窗 -->
+<div class="mask" id="mask">
+<div class="pay-box">
+<h3>请扫码支付</h3>
+<div class="price-tip" id="showPrice"></div>
+<div class="desc">企业微信收款，认准对应版本金额</div>
+<img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="企业微信收款码">
+<p>付款完成后，点击下方按钮进入专属客户群领取模板</p>
+<button class="btn-pay" onclick="joinGroup()">我已付款，联系客服发货</button>
+<div class="close" onclick="closeMask()">关闭</div>
+</div>
+</div>
+
+<script>
+const groupLink = "https://work.weixin.qq.com/ca/cawcde3aec710217c7";
+
+function openPay(type, price){
+document.getElementById("showPrice").innerText = "¥" + price;
+document.getElementById("mask").style.display = "flex";
+}
+function closeMask(){
+document.getElementById("mask").style.display = "none";
+}
+function joinGroup(){
+window.open(groupLink, "_blank");
+closeMask();
+}
+
+// ====== 倒计时 ======
+const earlyBirdEndDate = new Date("2026-06-30T23:59:59+08:00").getTime();
+function updateCountdown(){
+const now = new Date().getTime();
+const distance = earlyBirdEndDate - now;
+if(distance < 0){
+document.querySelector(".countdown").innerHTML = "⏰ 早鸟活动已结束";
+return;
+}
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const secs = Math.floor((distance % (1000 * 60)) / 1000);
+document.getElementById("cd-days").innerText = days;
+document.getElementById("cd-hours").innerText = String(hours).padStart(2, '0');
+document.getElementById("cd-mins").innerText = String(mins).padStart(2, '0');
+document.getElementById("cd-secs").innerText = String(secs).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ====== 名额不规则递减 ======
+const START_SPOTS = 83;
+const START_DATE = new Date("2026-05-13T00:00:00+08:00");
+const DEADLINE_DATE = new Date("2026-06-30T23:59:59+08:00");
+
+function dailyDrop(dayIndex) {
+  const seed = dayIndex * 2654435761;
+  const r = Math.abs(Math.sin(seed) * 0.6 + Math.sin(seed * 1.7 + 3) * 0.3 + Math.sin(seed * 0.5 + 1) * 0.1);
+  return r * 4;
+}
+
+function getRemainingSpots() {
+  const now = new Date();
+  if (now >= DEADLINE_DATE) return 0;
+  const totalDays = Math.ceil((DEADLINE_DATE - START_DATE) / (1000 * 60 * 60 * 24));
+  const elapsedMs = now - START_DATE;
+  if (elapsedMs <= 0) return START_SPOTS;
+  const elapsedDays = elapsedMs / (1000 * 60 * 60 * 24);
+  const dayIndex = Math.floor(elapsedDays);
+  const dayFrac = elapsedDays - dayIndex;
+  let rawTotal = 0;
+  for (let i = 0; i < totalDays; i++) rawTotal += dailyDrop(i);
+  let dropped = 0;
+  for (let i = 0; i < dayIndex; i++) {
+    dropped += dailyDrop(i) / rawTotal * START_SPOTS;
+  }
+  dropped += (dailyDrop(dayIndex) / rawTotal * START_SPOTS) * dayFrac;
+  return Math.max(0, Math.round(START_SPOTS - dropped));
+}
+
+function updateSpots() {
+const spots = getRemainingSpots();
+const el = document.getElementById("spots-num");
+const current = parseInt(el.innerText) || spots;
+if (current !== spots) {
+el.classList.add("flash");
+setTimeout(() => el.classList.remove("flash"), 600);
+el.innerText = spots;
+}
+}
+
+function syncHeroSold() {
+  const spots = getRemainingSpots();
+  const sold = 100 - spots;
+  const el = document.getElementById('hero-sold');
+  if (el) el.innerText = sold;
+}
+
+updateSpots();
+syncHeroSold();
+setInterval(function(){ updateSpots(); syncHeroSold(); }, 30000);
+</script>
+</body>
+</html>
