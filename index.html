@@ -404,7 +404,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 ¥138</button>
+      <button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 </button>
     </div>
 
     <!-- 标准版 -->
@@ -423,7 +423,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 ¥199</button>
+      <button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 </button>
     </div>
 
     <!-- Pro版 -->
@@ -442,7 +442,7 @@ animation:numFlash 0.6s ease;
         🌱 早鸟价 <span class="ep-amount">¥299</span><span class="ep-strike">¥499</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 ¥299</button>
+      <button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 </button>
     </div>
 
   </div>
@@ -528,7 +528,7 @@ animation:numFlash 0.6s ease;
   <span id="salePrice">早鸟价 ¥99</span> <!-- 默认显示标准版早鸟价 -->
 </div>
 <div class="desc">企业微信收款，认准对应版本金额<br>💡 直接扫码付原价，加客服微信领专属早鸟价</div>
-<img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="企业微信收款码">
+<img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AF%B9%E5%A4%96%E6%94%B6%E6%AC%BE%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="对外收款码">
 <p>付款完成后，点击下方按钮进入专属客户群领取模板</p>
 <button class="btn-pay" onclick="joinGroup()">我已付款，联系客服发货</button>
 <div class="close" onclick="closeMask()">关闭</div>
@@ -557,8 +557,16 @@ function closeMask(){
 document.getElementById("mask").style.display = "none";
 }
 function joinGroup(){
-window.open(groupLink, "_blank");
 closeMask();
+let m = document.getElementById("serviceMask");
+if(!m){
+m = document.createElement("div");
+m.id = "serviceMask";
+m.className = "mask";
+m.innerHTML = '<div class="pay-box"><h3>微信扫码咨询客服</h3><div class="desc">扫码联系客服领取早鸟价 / 售后咨询</div><img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="客服二维码"><button class="btn-pay" onclick="window.open(groupLink,&quot;_blank&quot;);document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">打开企业微信添加客服</button><div class="close" onclick="document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">关闭</div></div>';
+document.body.appendChild(m);
+}
+m.style.display = "flex";
 }
 
 // ====== 倒计时 ======
