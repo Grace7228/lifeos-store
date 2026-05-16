@@ -88,7 +88,7 @@ text-align:center;
 .card-features li::before{content:"•";color:#2563eb;font-weight:700;position:absolute;left:2px;}
 
 /* UNIQUE */
-.unique-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.unique-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
 .unique-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:28px 24px;}
 .unique-card .num{display:inline-block;width:36px;height:36px;background:#1a1a1a;color:#fff;border-radius:50%;text-align:center;line-height:36px;font-weight:700;margin-bottom:14px;font-size:15px;}
 .unique-card h3{font-size:17px;font-weight:700;margin-bottom:10px;color:#1a1a1a;}
@@ -300,7 +300,7 @@ animation:numFlash 0.6s ease;
 
   <!-- UNIQUE -->
   <section class="section">
-    <h2>四个<span class="accent">独家设计</span></h2>
+    <h2>五个<span class="accent">独家设计</span></h2>
     <div class="unique-grid">
       <div class="unique-card">
         <div class="num">1</div>
@@ -325,6 +325,13 @@ animation:numFlash 0.6s ease;
         <h3>创新日记 · 翻牌子写日记</h3>
         <p>认知负担最小化，采用选择题问答模式，降低了「我不知道今天写什么」的启动阻力。</p>
         <p>支持一键式切换清单，解决了既要又要的选择疲劳。</p>
+      </div>
+      <div class="unique-card">
+        <div class="num">5</div>
+        <h3>🌟 天赋探查 · 反向找到你的杠杆点</h3>
+        <p>不靠测评、不靠规划，让 <strong>30 天的真实数据行为</strong> 告诉你：你天生为什么发光。</p>
+        <p>系统自动生成你的 <strong>「天赋触发器 TOP 榜」</strong>——这不是模板，这是一面会说话的镜子。</p>
+        <p style="font-weight:600;color:#1d4ed8;">选择比努力更重要，开始观察自己。</p>
       </div>
     </div>
   </section>
@@ -388,7 +395,7 @@ animation:numFlash 0.6s ease;
     <!-- 效率版 -->
     <div class="card">
       <h3 class="card-title">🟢 效率版</h3>
-      <p class="card-tag">轻量入门</p>
+      <p class="card-tag" style="display:inline-block;background:#dcfce7;color:#15803d;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 看清 时间 去哪</p>
       <p class="card-text">核心执行闭环<br><strong>时光机 · OKR · 日志 · Ikigai 意义体系</strong></p>
       <ul class="card-features">
         <li>时光机（单点录入 + 自动统计）</li>
@@ -411,6 +418,7 @@ animation:numFlash 0.6s ease;
     <div class="card recommended">
       <div class="badge">最受欢迎</div>
       <h3 class="card-title">🔵 标准版</h3>
+      <p class="card-tag" style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 解决 问题 + 练成 技能</p>
       <p class="card-text">效率版全部功能 +<br><strong>聚焦痛点 · 刻意练习</strong></p>
       <ul class="card-features">
         <li>聚焦痛点（六步闭环 + 独家侧边栏表单）</li>
@@ -429,8 +437,10 @@ animation:numFlash 0.6s ease;
     <!-- Pro版 -->
     <div class="card">
       <h3 class="card-title">🟣 Pro 版</h3>
-      <p class="card-text">标准版全部功能 +<br><strong>视角切换 · 思考洞见 · 高密度人生 · 关系审视</strong></p>
+      <p class="card-tag" style="display:inline-block;background:#f3e8ff;color:#6d28d9;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 看见自己是谁 · 🌟 天赋探查</p>
+      <p class="card-text">标准版全部功能 +<br><strong>🌟 天赋探查 · 视角切换 · 思考洞见 · 高密度人生 · 关系审视</strong></p>
       <ul class="card-features">
+        <li>🌟 天赋探查（数据反推 · 天赋触发器 TOP 榜）</li>
         <li>视角切换（情绪认知重构 / 副本视角）</li>
         <li>思考洞见（ 原则 → 可执行行动）</li>
         <li>高密度人生（沉淀可复用的经验资产与“避坑清单”）</li>
