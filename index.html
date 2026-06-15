@@ -189,7 +189,6 @@ font-size:15px;
 font-family:'Courier New',monospace;
 display:inline-block;min-width:20px;text-align:center;
 }
-/* 名额减少时的闪烁效果 */
 .spots-left .num.flash {
 animation:numFlash 0.6s ease;
 }
@@ -261,7 +260,7 @@ animation:numFlash 0.6s ease;
       <li>学了钢琴/英语/健身，三个月热度，然后放弃</li>
       <li>记账记了三天，第四天嫌麻烦就不记了</li>
     </ul>
-    <div class="problem-insight">💡 核心洞察：你不是执行力差，是你的系统太复杂，耗尽了你的启动能量。</div>
+    <div class="problem-insight">💡 核心洞察：你不是执行力差，是你的系统对你来说有点重，不够友好——光是「开始用」就耗光了你的启动能量。</div>
   </section>
 
   <!-- MECHANISM -->
@@ -273,8 +272,6 @@ animation:numFlash 0.6s ease;
         <span class="step">点击"开始"</span>
         <span class="arrow">→</span>
         <span class="step">选标签</span>
-        <span class="arrow">→</span>
-        <span class="step">首次任务勾选</span>
         <span class="arrow">→</span>
         <span class="step">备注栏记录经过与感想</span>
         <span class="arrow">→</span>
@@ -313,8 +310,7 @@ animation:numFlash 0.6s ease;
         <div class="num">2</div>
         <h3>自然语言一句话，系统自动理解</h3>
         <p>在时光机备注里写自然语言，AI 自动解析、写入对应数据库、更新仪表盘。</p>
-        <div class="demo">"续费 ChatGPT 月费 144"<br>"练琴 BPM 80→92，错 3 次"<br></div>
-        
+        <p>新增「提示词功能」：支持按模板格式化书写，也支持口语一句话输入；系统自动解析落库，并生成 AI 自动总结（标准版开始包含）。</p>
       </div>
       <div class="unique-card">
         <div class="num">3</div>
@@ -337,10 +333,47 @@ animation:numFlash 0.6s ease;
     </div>
   </section>
 
+  <!-- ZERO-FRICTION MOAT：零负担护城河 -->
+  <section class="section">
+    <h2>为什么你<span class="accent">用得下去</span>？三个「零」</h2>
+    <p style="text-align:center;color:#6b7280;font-size:15px;margin-top:-12px;margin-bottom:28px;">90% 的模板死在“太麻烦”。这个系统，把麻烦全留给了后台。</p>
+    <div class="unique-grid">
+      <div class="unique-card">
+        <div class="num">①</div>
+        <h3 style="color:#dc2626;">零启动 · 打开就用</h3>
+        <p>不用做计划、不用搭模板、不用理解系统。想追踪就选「关键结果」标签，想打卡就选「打卡」标签，要同时追踪就多选——<strong>标签即分流，意图即配置。</strong></p>
+        <p style="font-weight:600;color:#1d4ed8;">小白零压上手，第一条记录就有价值。</p>
+      </div>
+      <div class="unique-card">
+        <div class="num">②</div>
+        <h3 style="color:#ea580c;">零负担 · 永远只填 4 个字段</h3>
+        <p>每天的动作只有一个入口、四个字段。想深挖时才进深度模块，不想就不碰——<strong>系统替你扛复杂度，你只管记。</strong></p>
+      </div>
+      <div class="unique-card">
+        <div class="num">③</div>
+        <h3 style="color:#d97706;">零增负 · 功能无限加，手不用多动</h3>
+        <p>后台可无限扩展、随时再补新模块，但前台动作一个字都不会多——<strong>别人加功能=你加负担；我加功能=系统加班。</strong></p>
+      </div>
+    </div>
+    <div style="margin-top:24px;background:#fffbeb;border:1px solid #fbbf24;border-radius:12px;padding:22px 26px;">
+      <p style="font-size:15px;font-weight:700;color:#92400e;margin-bottom:8px;">🗝️ 还有一层：每条标签都配好了「格式化提示词」</p>
+      <p style="font-size:14px;color:#4b5563;line-height:1.8;margin:0;">你不用自己想“该写什么、怎么写”。每一条标签都匹配一条提示词模板——<strong>照着写，或者直接念一句</strong>，系统在数据库里自动解析落库。把“写记录”的认知负担，降到几乎为零。</p>
+    </div>
+    <div style="margin-top:16px;background:#eff6ff;border:1px solid #93c5fd;border-radius:12px;padding:22px 26px;">
+      <p style="font-size:15px;font-weight:700;color:#1e40af;margin-bottom:8px;">⚙️ 幕后还有一台「自动分流引擎」</p>
+      <p style="font-size:14px;color:#4b5563;line-height:1.8;margin:0;">重复任务只要复制、点「开始」，做完点「结束」，系统就按标签自动归到对应数据库，<strong>绝不乱建条目</strong>。该一对一的（记账、工作日志等）就建一条；该多对一的（关键结果、追剧追番）就自动归纳——<strong>从分流到建档，全程零操作。</strong></p>
+    </div>
+    <div style="margin-top:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:22px 26px;">
+      <p style="font-size:15px;font-weight:700;color:#15803d;margin-bottom:8px;">🔄 最近更新：「全工作流闭环」一站到底</p>
+      <p style="font-size:14px;color:#4b5563;line-height:1.8;margin:0;">今天的工作，只要把<strong>提示词</strong>写出来，系统就直接在「工作日志」里<strong>自动分解</strong>成具体条目；接着干活，只要瞄一眼「工作推进」里的<strong>「下一步工作」</strong>照着做；做完把<strong>「全链路闭环」</strong>一勾，这条就自动归档进「已闭环」——不用反复规划，也不用记着下一步是什么。</p>
+    </div>
+    <p style="text-align:center;font-size:16px;font-weight:700;color:#0f172a;margin-top:24px;line-height:1.8;">真正高级的系统，是把<span style="color:#2563eb;">极简好用</span>交付给你，<br>把所有<span style="color:#2563eb;">复杂度都悄悄藏在后台</span>。</p>
+  </section>
+
   <!-- SOUL GDP HIGHLIGHT：灵魂GDP 馆旗舰创新 -->
   <section class="section">
     <h2>旗舰创新 · <span class="accent">🎁 灵魂GDP 馆</span></h2>
-    <p style="text-align:center;color:#6b7280;font-size:15px;margin-top:-12px;margin-bottom:28px;">Soul GDP <strong style="color:#1a1a1a;">  · 巅峰体验分析中心</strong>。</p>
+    <p style="text-align:center;color:#6b7280;font-size:15px;margin-top:-12px;margin-bottom:28px;">不只是记录时间，而是 <strong style="color:#1a1a1a;">采集内啡肽</strong>。</p>
 
     <div style="text-align:center;margin-bottom:28px;">
       <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/soul-gdp-hero.png" alt="灵魂GDP 馆 · 全年情绪地形 + 6维奖赏光谱" style="width:100%;max-width:920px;border-radius:16px;box-shadow:0 8px 28px rgba(124,58,237,0.18);border:1px solid #e9d5ff;">
@@ -376,6 +409,7 @@ animation:numFlash 0.6s ease;
           🔵 <strong>周 Agent 诊断</strong>（Notion AI 加成）：每周日 21:00 自动跑全表诊断，输出诊断报告 + 最小恢复行动。
         </p>
         <p style="font-size:12px;color:#9ca3af;font-style:italic;margin-top:12px;margin-bottom:0;">即使只有效率版、没有 Notion AI，前两层仍可独立工作——公式是底盘，Agent 是加成。</p>
+        <p style="font-size:12px;color:#16a34a;font-weight:600;margin-top:8px;margin-bottom:0;">✅ 仅使用 Notion 基础版 AI Agent 即可运行，不用额外氪金购买 Custom AI Agent 的积分。</p>
       </div>
     </div>
 
@@ -389,33 +423,23 @@ animation:numFlash 0.6s ease;
     </div>
   </section>
 
-  <!-- PRODUCT SCREENSHOTS：左侧上下（聚焦痛点+视角）+ 右侧日志，下方3张并排 -->
-  <section class="section">
-    <h2>产品<span class="accent">实际界面</span></h2>
-
-    <!-- 上半部分：左侧上下结构 + 右侧日志 -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-      <!-- 左侧：上聚焦痛点，下视角 -->
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%81%9A%E7%84%A6%E7%97%9B%E7%82%B9.png" alt="聚焦痛点" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-        <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%A7%86%E8%A7%92.jpg" alt="视角" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-      </div>
-      <!-- 右侧：日志大图 -->
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%97%A5%E5%BF%97.png" alt="日志" style="width:100%;border-radius:14px;object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  <!-- PRODUCT SCREENSHOTS：左列 聚焦痛点 + 视角 堆叠，右列 日志 -->
+<section class="section">
+  <h2>产品<span class="accent">实际界面</span></h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E8%81%9A%E7%84%A6%E7%97%9B%E7%82%B9.png" alt="聚焦痛点" style="width:100%;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+      <img src="把你找到的视角图片地址粘到这里" alt="视角" style="width:100%;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
     </div>
-
-    <!-- 下半部分：3张并排（一目全览、打卡、理性购物） -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E7%9B%AE%E5%85%A8%E8%A7%88.png" alt="一目全览" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%89%93%E5%8D%A1.png" alt="打卡" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E7%90%86%E6%80%A7%E8%B4%AD%E7%89%A9.png" alt="理性购物" style="width:100%;border-radius:10px;object-fit:cover;aspect-ratio:4/3;">
-    </div>
-  </section>
+    <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E6%97%A5%E5%BF%97.png" alt="日志" style="width:100%;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+  </div>
+</section>
 
   <!-- MORE SCREENSHOTS：上一目全览，下ikigai -->
   <section class="section">
     <h2>更多<span class="accent">界面细节</span></h2>
-    <div style="text-align:center;">
+    <div style="display:flex;flex-direction:column;gap:20px;align-items:center;">
+      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E4%B8%80%E7%9B%AE%E5%85%A8%E8%A7%88.png" alt="一目全览" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
       <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/ikiga.png" alt="Ikigai" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     </div>
   </section>
@@ -473,40 +497,40 @@ animation:numFlash 0.6s ease;
       <p class="card-tag" style="display:inline-block;background:#dbeafe;color:#1d4ed8;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 解决 问题 + 练成 技能</p>
       <p class="card-text">效率版全部功能 +<br><strong>聚焦痛点 · 刻意练习</strong></p>
       <ul class="card-features">
+        <li>时光机提示词 +（格式化书写 + 口语输入 → 自动解析落库 + AI 自动总结）</li>
+        <li>仅需 4 个属性即可跑通最小输入闭环（比上个版本又少输入一项属性）</li>
         <li>聚焦痛点（六步闭环 + 独家侧边栏表单）</li>
         <li>刻意练习馆（技能习得追踪）</li>
         <li>Ikigai 存在意义体系（热情 / 天赋 / 使命 / 职业）</li>
       </ul>
-      <div class="price">¥199</div>
+      <div class="price">¥299</div>
       <div class="price-note">一次购买，永久使用</div>
       <div class="early-price">
-        🌱 早鸟价 <span class="ep-amount">¥99</span><span class="ep-strike">¥199</span>
+        🌱 早鸟价 <span class="ep-amount">¥199</span><span class="ep-strike">¥299</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('bz', 199)">直接扫码购买 </button>
+      <button class="btn secondary" onclick="openPay('bz', 299)">直接扫码购买 </button>
     </div>
 
     <!-- Pro版 -->
     <div class="card">
       <h3 class="card-title">🟣 Pro 版</h3>
-      <p class="card-tag" style="display:inline-block;background:#f3e8ff;color:#6d28d9;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 看见自己是谁 </p>
-      <p class="card-text">标准版全部功能 +<br><strong>🌟 天赋探查 · 视角切换 · 思考洞见 · 高密度人生 · 关系审视 · 灵魂GDP</strong></p>
+      <p class="card-tag" style="display:inline-block;background:#f3e8ff;color:#6d28d9;font-weight:700;font-size:15px;letter-spacing:0;padding:6px 14px;border-radius:20px;margin:0 auto 18px;">= 看见自己是谁 · 🌟 天赋探查</p>
+      <p class="card-text">标准版全部功能 +<br><strong>🌟 天赋探查 · 视角切换 · 思考洞见 · 高密度人生 · 关系审视</strong></p>
       <ul class="card-features">
         <li>🌟 天赋探查（数据反推 · 天赋触发器 TOP 榜）</li>
         <li>视角切换（情绪认知重构 / 副本视角）</li>
         <li>思考洞见（ 原则 → 可执行行动）</li>
         <li>高密度人生（沉淀可复用的经验资产与“避坑清单”）</li>
         <li>关系审视（看清关系中的自己和他人）</li>
-         <li>灵魂GDP（日常生活的内啡肽采集器）</li>
-
       </ul>
-      <div class="price">¥499</div>
+      <div class="price">¥599</div>
       <div class="price-note">含终身更新</div>
       <div class="early-price">
-        🌱 早鸟价 <span class="ep-amount">¥299</span><span class="ep-strike">¥499</span>
+        🌱 早鸟价 <span class="ep-amount">¥399</span><span class="ep-strike">¥599</span>
       </div>
       <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
-      <button class="btn secondary" onclick="openPay('pro', 499)">直接扫码购买 </button>
+      <button class="btn secondary" onclick="openPay('pro', 599)">直接扫码购买 </button>
     </div>
 
   </div>
@@ -522,7 +546,7 @@ animation:numFlash 0.6s ease;
         </thead>
         <tbody>
           <tr><td>效率版（时光机 + OKR + 仪表盘）</td><td>时间追踪 App + 目标管理模板</td><td>¥158</td></tr>
-          <tr><td>标准版（+ 聚焦痛点 + 刻意练习）</td><td>问题解决方法论课 + 技能习得训练营</td><td>¥498</td></tr>
+          <tr><td>标准版（+ 聚焦痛点 + 刻意练习 + 提示词 + AI 总结）</td><td>问题解决方法论课 + 技能习得训练营 + 提示词写作 / AI 总结工具</td><td>¥698</td></tr>
           <tr><td>Pro 版（+ 视角切换 + 思考洞见 + 高密度人生 + 关系审视）</td><td>情绪管理课 + 认知升级训练营 + 人际关系咨询</td><td>¥1598</td></tr>
         </tbody>
       </table>
@@ -574,13 +598,7 @@ animation:numFlash 0.6s ease;
   </section>
 
   <p class="footer-note">购买后通过 Notion 链接秒发货 · 支持 微信支付</p>
-  <p class="footer-note" style="margin-top:16px;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb;padding-top:16px;">© 活在当下 Life OS · 版权所有<br>本产品内容及设计已依法申请著作权登记保护。禁止任何商业用途的复制、仿制、转售或公开传播。个人学习、研究合理用途不在此限。<br>侵权行为将依据《中华人民共和国著作权法》承担相应的法律责任。感谢你对原创的尊重🌱。</p>
-
-</div>
-
-</div>
-
-</div>
+  <p class="footer-note" style="margin-top:16px;color:#9ca3af;font-size:12px;border-top:1px solid #e5e7eb;padding-top:16px;">© 活在当下 Life OS · 版权所有<br>本产品内容及设计已依法申请著作权登记保护。未经授权，禁止复制、仿制、转售或以任何形式传播本产品内容。<br>侵权行为将依据《中华人民共和国著作权法》及相关法律追究法律责任，情节严重者将移送司法机关处理。</p>
 
 </div>
 
@@ -589,8 +607,8 @@ animation:numFlash 0.6s ease;
 <div class="pay-box">
 <h3>请扫码支付</h3>
 <div class="price-tip" id="showPrice">
-  <span id="fullPrice">¥199</span> <!-- 默认显示标准版原价 -->
-  <span id="salePrice">早鸟价 ¥99</span> <!-- 默认显示标准版早鸟价 -->
+  <span id="fullPrice">¥299</span>
+  <span id="salePrice">早鸟价 ¥199</span>
 </div>
 <div class="desc">企业微信收款，认准对应版本金额<br>💡 直接扫码付原价，加客服微信领专属早鸟价</div>
 <img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AF%B9%E5%A4%96%E6%94%B6%E6%AC%BE%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="对外收款码">
@@ -604,18 +622,21 @@ animation:numFlash 0.6s ease;
 const groupLink = "https://work.weixin.qq.com/ca/cawcde3aec710217c7";
 
 function openPay(type, fullPrice){
-  // 手动指定正确的早鸟价，不再自动算半价
   let salePrice;
   if (fullPrice === 138) {
-    salePrice = 69; // 效率版早鸟价
-  } else if (fullPrice === 199) {
-    salePrice = 99; // 标准版早鸟价
-  } else if (fullPrice === 499) {
-    salePrice = 299; // Pro版早鸟价
+    salePrice = 69;
+  } else if (fullPrice === 299) {
+    salePrice = 199;
+  } else if (fullPrice === 599) {
+    salePrice = 399;
   }
-  // 显示原价（划线）和正确的早鸟价
-  document.getElementById("fullPrice").innerHTML = `<s>¥${fullPrice}</s>`;
-  document.getElementById("salePrice").innerText = `早鸟价 ¥${salePrice}`;
+  if (salePrice) {
+    document.getElementById("fullPrice").innerHTML = `<s>¥${fullPrice}</s>`;
+    document.getElementById("salePrice").innerText = `早鸟价 ¥${salePrice}`;
+  } else {
+    document.getElementById("fullPrice").innerHTML = `¥${fullPrice}`;
+    document.getElementById("salePrice").innerText = "";
+  }
   document.getElementById("mask").style.display = "flex";
 }
 function closeMask(){
