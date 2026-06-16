@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>当下时钟 · Presence Clock</title>
+<style>
+  :root{
+    --accent:#8a9a5b;
+    --accent-dark:#6f7e45;
+    --accent-soft:#eef1e6;
+    --ink:#4a4a42;
+    --ink-soft:#8c8c80;
+    --card:#ffffff;
+    --bg:#f7f6f1;
+    --shadow:0 .5rem 1.4rem rgba(60,60,40,.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;width:100%;height:100%;
+    background:transparent;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #stage{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .app{
+    width:24rem;background:var(--bg);border-radius:1.6rem;
+    padding:1.6rem 1.4rem 1.5rem;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;transition:background .4s ease;
+  }
+  .app::before,.app::after{
+    content:"";position:absolute;border-radius:50%;
+    background:radial-gradient(circle at center, transparent 38%, var(--accent-soft) 39%, var(--accent-soft) 46%, transparent 47%);
+    opacity:.6;pointer-events:none;
+  }
+  .app::before{width:9rem;height:9rem;top:-3rem;right:-2.5rem;}
+  .app::after{width:7rem;height:7rem;bottom:-2.2rem;left:-2rem;}
+  .tabs{
+    position:relative;z-index:1;display:flex;gap:.4rem;justify-content:center;
+    background:var(--card);padding:.3rem;border-radius:999px;
+    width:fit-content;margin:0 auto 1.3rem;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);
+  }
+  .tab{
+    border:0;cursor:pointer;font-size:.92rem;font-weight:600;color:var(--ink-soft);
+    background:transparent;padding:.5rem 1.1rem;border-radius:999px;
+    display:flex;align-items:center;gap:.35rem;transition:.25s;white-space:nowrap;
+  }
+  .tab.active{background:var(--accent);color:#fff;box-shadow:0 .3rem .7rem rgba(0,0,0,.12);}
+  .tab svg{width:1rem;height:1rem;}
+  .display{position:relative;z-index:1;}
+  .digits{display:flex;align-items:center;justify-content:center;gap:.5rem;}
+  .group{display:flex;gap:.3rem;background:var(--accent);padding:.5rem;border-radius:1rem;transition:background .4s ease;}
+  .digit{
+    position:relative;width:2.5rem;height:3.4rem;background:var(--card);border-radius:.6rem;
+    display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:700;
+    color:var(--accent-dark);overflow:hidden;transition:color .4s ease;
+  }
+  .digit::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.06);transform:translateY(-.5px);}
+  .colon{font-size:1.8rem;font-weight:700;color:var(--accent);transition:color .4s ease,opacity .2s;}
+  .colon.blink{opacity:.25;}
+  .date{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:.7rem;letter-spacing:.02em;}
+  .countdown-ctrl{position:relative;z-index:1;margin-top:1.1rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;}
+  .presets{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;}
+  .chip{border:1px solid var(--accent);background:var(--card);color:var(--accent-dark);font-size:.8rem;font-weight:600;padding:.35rem .8rem;border-radius:999px;cursor:pointer;transition:.2s;}
+  .chip:hover{background:var(--accent-soft);}
+  .chip.active{background:var(--accent);color:#fff;}
+  .stepper{display:flex;align-items:center;gap:.6rem;}
+  .step-btn{width:2rem;height:2rem;border-radius:50%;border:1px solid var(--accent);background:var(--card);color:var(--accent-dark);font-size:1.1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:.2s;}
+  .step-btn:hover{background:var(--accent-soft);}
+  .step-label{font-size:.8rem;color:var(--ink-soft);min-width:3.5rem;text-align:center;}
+  .actions{display:flex;gap:.5rem;}
+  .btn{border:0;cursor:pointer;font-size:.86rem;font-weight:600;padding:.5rem 1.4rem;border-radius:999px;transition:.2s;}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-dark);}
+  .btn-ghost{background:var(--card);color:var(--ink-soft);box-shadow:inset 0 0 0 1px rgba(0,0,0,.07);}
+  .btn-ghost:hover{color:var(--ink);}
+  .themes{position:relative;z-index:1;display:flex;gap:.6rem;justify-content:center;align-items:center;margin-top:1.3rem;background:var(--card);padding:.55rem .8rem;border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
+  .swatch{width:1.4rem;height:1.4rem;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;position:relative;}
+  .swatch.active{border-color:#fff;box-shadow:0 0 0 2px currentColor;}
+  .swatch:hover{transform:scale(1.12);}
+  .hidden{display:none !important;}
+  @keyframes flash{0%,100%{background:var(--bg);}50%{background:var(--accent-soft);}}
+  .app.ringing{animation:flash .7s ease-in-out 6;}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="app" id="app">
+    <div class="tabs">
+      <button class="tab active" data-tab="clock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        时钟
+      </button>
+      <button class="tab" data-tab="timer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 2h4"/><circle cx="12" cy="13" r="8"/><path d="M12 13V9"/></svg>
+        倒计时
+      </button>
+    </div>
+    <div class="display" id="clockView">
+      <div class="digits">
+        <div class="group"><div class="digit" id="h1">0</div><div class="digit" id="h2">0</div></div>
+        <div class="colon" id="c1">:</div>
+        <div class="group"><div class="digit" id="m1">0</div><div class="digit" id="m2">0</div></div>
+        <div class="colon" id="c2">:</div>
+        <div class="group"><div class="digit" id="s1">0</div><div class="digit" id="s2">0</div></div>
+      </div>
+      <div class="date" id="dateText">—</div>
+    </div>
+    <div class="display hidden" id="timerView">
+      <div class="digits">
+        <div class="group"><div class="digit" id="tm1">2</div><div class="digit" id="tm2">5</div></div>
+        <div class="colon">:</div>
+        <div class="group"><div class="digit" id="ts1">0</div><div class="digit" id="ts2">0</div></div>
+      </div>
+      <div class="countdown-ctrl">
+        <div class="presets" id="presets">
+          <button class="chip" data-min="5">5分</button>
+          <button class="chip" data-min="15">15分</button>
+          <button class="chip active" data-min="25">25分</button>
+          <button class="chip" data-min="45">45分</button>
+        </div>
+        <div class="stepper">
+          <button class="step-btn" id="minus">−</button>
+          <div class="step-label" id="stepLabel">25 分钟</div>
+          <button class="step-btn" id="plus">+</button>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="startBtn">开始</button>
+          <button class="btn btn-ghost" id="resetBtn">重置</button>
+        </div>
+      </div>
+    </div>
+    <div class="themes" id="themes"></div>
+  </div>
+</div>
+<script>
+const THEMES = [
+  {name:'抹茶绿', accent:'#8a9a5b', dark:'#6f7e45', soft:'#eef1e6', bg:'#f7f6f1'},
+  {name:'雾霾蓝', accent:'#7e9bb0', dark:'#5f7e94', soft:'#e9eef2', bg:'#f4f7f9'},
+  {name:'朱砂红', accent:'#b15a4f', dark:'#8f4339', soft:'#f6e9e6', bg:'#faf4f2'},
+  {name:'烟紫', accent:'#9080a0', dark:'#71607f', soft:'#efebf3', bg:'#f7f5f9'},
+  {name:'暖沙', accent:'#c9a06a', dark:'#a87f48', soft:'#f5ecdf', bg:'#faf6ef'},
+  {name:'墨黑', accent:'#5b5f66', dark:'#3f4248', soft:'#e9eaec', bg:'#f5f5f6'}
+];
+const root=document.documentElement, app=document.getElementById('app');
+function applyTheme(i){
+  const t=THEMES[i];
+  root.style.setProperty('--accent',t.accent);
+  root.style.setProperty('--accent-dark',t.dark);
+  root.style.setProperty('--accent-soft',t.soft);
+  root.style.setProperty('--bg',t.bg);
+  document.querySelectorAll('.swatch').forEach((s,idx)=>{s.classList.toggle('active',idx===i);s.style.color=THEMES[idx].accent;});
+  try{localStorage.setItem('presence-clock-theme',i);}catch(e){}
+}
+const themesEl=document.getElementById('themes');
+THEMES.forEach((t,i)=>{const s=document.createElement('div');s.className='swatch';s.style.background=t.accent;s.title=t.name;s.onclick=()=>applyTheme(i);themesEl.appendChild(s);});
+let savedTheme=0;try{savedTheme=parseInt(localStorage.getItem('presence-clock-theme')||'0',10)||0;}catch(e){}
+applyTheme(savedTheme);
+const clockView=document.getElementById('clockView'), timerView=document.getElementById('timerView');
+document.querySelectorAll('.tab').forEach(tab=>{tab.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');const isClock=tab.dataset.tab==='clock';clockView.classList.toggle('hidden',!isClock);timerView.classList.toggle('hidden',isClock);fit();};});
+const WEEK=['周日','周一','周二','周三','周四','周五','周六'];
+function setDigits(ids,str){for(let i=0;i<ids.length;i++){const el=document.getElementById(ids[i]);if(el&&el.textContent!==str[i])el.textContent=str[i];}}
+let blinkOn=true;
+function tickClock(){
+  const d=new Date();
+  const hh=String(d.getHours()).padStart(2,'0'),mm=String(d.getMinutes()).padStart(2,'0'),ss=String(d.getSeconds()).padStart(2,'0');
+  setDigits(['h1','h2'],hh);setDigits(['m1','m2'],mm);setDigits(['s1','s2'],ss);
+  document.getElementById('dateText').textContent=(d.getMonth()+1)+'/'+d.getDate()+' '+WEEK[d.getDay()];
+  blinkOn=!blinkOn;
+  document.getElementById('c1').classList.toggle('blink',!blinkOn);
+  document.getElementById('c2').classList.toggle('blink',!blinkOn);
+}
+setInterval(tickClock,1000);tickClock();
+let totalMin=25,remain=25*60,running=false,timerId=null;
+const stepLabel=document.getElementById('stepLabel'),startBtn=document.getElementById('startBtn');
+function renderTimer(){const m=Math.floor(remain/60),s=remain%60;setDigits(['tm1','tm2'],String(m).padStart(2,'0'));setDigits(['ts1','ts2'],String(s).padStart(2,'0'));}
+function setMinutes(min){totalMin=Math.max(1,Math.min(180,min));if(!running){remain=totalMin*60;renderTimer();}stepLabel.textContent=totalMin+' 分钟';document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',parseInt(c.dataset.min,10)===totalMin));}
+document.querySelectorAll('.chip').forEach(c=>{c.onclick=()=>{setMinutes(parseInt(c.dataset.min,10));};});
+document.getElementById('plus').onclick=()=>setMinutes(totalMin+1);
+document.getElementById('minus').onclick=()=>setMinutes(totalMin-1);
+function beep(){try{const ctx=new (window.AudioContext||window.webkitAudioContext)();let t=ctx.currentTime;for(let i=0;i<3;i++){const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=880;o.type='sine';o.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(0.001,t);g.gain.exponentialRampToValueAtTime(0.3,t+0.02);g.gain.exponentialRampToValueAtTime(0.001,t+0.35);o.start(t);o.stop(t+0.36);t+=0.5;}}catch(e){}}
+function finish(){running=false;clearInterval(timerId);startBtn.textContent='开始';app.classList.add('ringing');beep();setTimeout(()=>app.classList.remove('ringing'),4500);}
+function tick(){if(remain<=0){finish();return;}remain--;renderTimer();if(remain<=0)finish();}
+startBtn.onclick=()=>{if(running){running=false;clearInterval(timerId);startBtn.textContent='继续';}else{if(remain<=0)remain=totalMin*60;running=true;startBtn.textContent='暂停';timerId=setInterval(tick,1000);}};
+document.getElementById('resetBtn').onclick=()=>{running=false;clearInterval(timerId);startBtn.textContent='开始';remain=totalMin*60;renderTimer();};
+setMinutes(25);renderTimer();
+const stage=document.getElementById('stage');
+function fit(){
+  const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;
+  const APP_W_REM=24;
+  const appH=document.querySelector('.app').offsetHeight;
+  const curFont=parseFloat(root.style.fontSize)||16;
+  const appH_REM=appH/curFont;
+  const byW=w/APP_W_REM,byH=h/(appH_REM||30);
+  let fs=Math.min(byW,byH)*0.96;
+  fs=Math.max(6,Math.min(fs,34));
+  root.style.fontSize=fs+'px';
+}
+if(window.ResizeObserver){new ResizeObserver(fit).observe(stage);}
+window.addEventListener('resize',fit);window.addEventListener('load',fit);
+root.style.fontSize='16px';fit();requestAnimationFrame(fit);setTimeout(fit,60);
+</script>
+</body>
+</html>
