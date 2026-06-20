@@ -5,160 +5,206 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>当下时钟 · Presence Clock</title>
 <style>
-  :root{
-    --accent:#8a9a5b;--accent-dark:#6f7e45;--accent-soft:#eef1e6;
-    --ink:#4a4a42;--ink-soft:#8c8c80;--card:#ffffff;--bg:#f7f6f1;
-    --gear:#e6ebd9;
-    --shadow:0 .5rem 1.4rem rgba(60,60,40,.10);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;width:100%;height:100%;background:transparent;overflow:hidden;
-    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;}
-  #stage{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .app{width:24rem;background:var(--bg);border-radius:1.6rem;padding:1.6rem 1.4rem 1.5rem;
-    box-shadow:var(--shadow);position:relative;overflow:hidden;transition:background .4s ease;}
-  .gears{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-  .gear{position:absolute;transform-origin:50% 50%;color:var(--gear);transition:color .4s ease;}
-  .gear svg{display:block;width:100%;height:100%;}
-  @keyframes spinCW{to{transform:rotate(360deg);}}
-  @keyframes spinCCW{to{transform:rotate(-360deg);}}
-  .tabs{position:relative;z-index:1;display:flex;gap:.4rem;justify-content:center;background:var(--card);
-    padding:.3rem;border-radius:999px;width:fit-content;margin:0 auto 1.3rem;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
-  .tab{border:0;cursor:pointer;font-size:.92rem;font-weight:600;color:var(--ink-soft);background:transparent;
-    padding:.5rem 1.1rem;border-radius:999px;display:flex;align-items:center;gap:.35rem;transition:.25s;white-space:nowrap;}
-  .tab.active{background:var(--accent);color:#fff;box-shadow:0 .3rem .7rem rgba(0,0,0,.12);}
-  .tab svg{width:1rem;height:1rem;}
-  .display{position:relative;z-index:1;}
-  .digits{display:flex;align-items:center;justify-content:center;gap:.5rem;}
-  .group{display:flex;gap:.3rem;background:var(--accent);padding:.5rem;border-radius:1rem;transition:background .4s ease;}
-  .digit{position:relative;width:2.5rem;height:3.4rem;background:var(--card);border-radius:.6rem;display:flex;align-items:center;justify-content:center;
-    font-size:2.4rem;font-weight:700;color:var(--accent-dark);overflow:hidden;transition:color .4s ease;}
-  .digit::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.06);transform:translateY(-.5px);}
-  .colon{font-size:1.8rem;font-weight:700;color:var(--accent);transition:color .4s ease,opacity .2s;}
-  .colon.blink{opacity:.25;}
-  .date{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:.7rem;letter-spacing:.02em;}
-  .countdown-ctrl{position:relative;z-index:1;margin-top:1.1rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;}
-  .presets{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;}
-  .chip{border:1px solid var(--accent);background:var(--card);color:var(--accent-dark);font-size:.8rem;font-weight:600;padding:.35rem .8rem;border-radius:999px;cursor:pointer;transition:.2s;}
-  .chip:hover{background:var(--accent-soft);}
-  .chip.active{background:var(--accent);color:#fff;}
-  .stepper{display:flex;align-items:center;gap:.6rem;}
-  .step-btn{width:2rem;height:2rem;border-radius:50%;border:1px solid var(--accent);background:var(--card);color:var(--accent-dark);font-size:1.1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:.2s;}
-  .step-btn:hover{background:var(--accent-soft);}
-  .step-label{font-size:.8rem;color:var(--ink-soft);min-width:3.5rem;text-align:center;}
-  .actions{display:flex;gap:.5rem;}
-  .btn{border:0;cursor:pointer;font-size:.86rem;font-weight:600;padding:.5rem 1.4rem;border-radius:999px;transition:.2s;}
-  .btn-primary{background:var(--accent);color:#fff;}
-  .btn-primary:hover{background:var(--accent-dark);}
-  .btn-ghost{background:var(--card);color:var(--ink-soft);box-shadow:inset 0 0 0 1px rgba(0,0,0,.07);}
-  .btn-ghost:hover{color:var(--ink);}
-  .sound{position:relative;z-index:1;margin-top:1.1rem;display:flex;flex-direction:column;align-items:center;gap:.7rem;}
-  .snd-presets{display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap;}
-  .snd{border:1px solid var(--accent);background:var(--card);color:var(--accent-dark);font-size:.8rem;font-weight:600;
-    padding:.35rem .75rem;border-radius:999px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.3rem;}
-  .snd:hover{background:var(--accent-soft);}
-  .snd.active{background:var(--accent);color:#fff;}
-  .vol{display:flex;align-items:center;gap:.55rem;background:var(--card);padding:.4rem .8rem;border-radius:999px;
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);width:fit-content;}
-  .vol-ico{cursor:pointer;font-size:1rem;line-height:1;user-select:none;}
-  .vol input[type=range]{-webkit-appearance:none;appearance:none;height:.35rem;width:9rem;border-radius:999px;
-    background:var(--accent-soft);accent-color:var(--accent);cursor:pointer;}
-  .vol input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:1rem;height:1rem;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-  .vol input[type=range]::-moz-range-thumb{width:1rem;height:1rem;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;}
-  .themes{position:relative;z-index:1;display:flex;gap:.6rem;justify-content:center;align-items:center;margin-top:1.1rem;background:var(--card);padding:.55rem .8rem;border-radius:999px;width:fit-content;margin-left:auto;margin-right:auto;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);}
-  .swatch{width:1.4rem;height:1.4rem;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;position:relative;}
-  .swatch.active{border-color:#fff;box-shadow:0 0 0 2px currentColor;}
-  .swatch:hover{transform:scale(1.12);}
-  .hidden{display:none !important;}
-  @keyframes flash{0%,100%{background:var(--bg);}50%{background:var(--accent-soft);}}
-  .app.ringing{animation:flash .7s ease-in-out 6;}
-  @media (prefers-reduced-motion: reduce){ .gear{animation:none !important;} }
+:root{
+--accent:#d23b2e;--accent-dark:#a52b22;--accent-soft:#fbe7e3;--accent-deep:#7e1f19;
+--ink:#4a4a42;--ink-soft:#8c8c80;--card:#ffffff;--bg:#fbeeec;
+--leaf:#5f9e3f;--leaf-dark:#477a2c;
+--shadow:0 1.2rem 2.6rem rgba(120,30,20,.28);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;width:100%;height:100%;background:transparent;overflow:hidden;
+font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;}
+#stage{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+
+/* ===== 番茄外形 ===== */
+.tomato{position:relative;width:27.5rem;}
+.leaf{position:absolute;top:-1.7rem;left:50%;transform:translateX(-50%);z-index:3;width:9rem;height:4.5rem;pointer-events:none;filter:drop-shadow(0 .3rem .4rem rgba(60,90,30,.35));}
+.leaf svg{display:block;width:100%;height:100%;}
+.body{position:relative;z-index:1;border-radius:25% 25% 44% 44%/21% 21% 50% 50%;
+background:
+radial-gradient(circle at 32% 26%, rgba(255,255,255,.55), rgba(255,255,255,0) 32%),
+radial-gradient(circle at 50% 40%, var(--accent), var(--accent-dark) 62%, var(--accent-deep) 100%);
+box-shadow:var(--shadow), inset -1.2rem -1.4rem 2.6rem rgba(80,15,10,.35), inset 1.1rem 1rem 2rem rgba(255,255,255,.18);
+padding:2.1rem 2.1rem 1.9rem;transition:background .4s ease,box-shadow .4s ease;}
+/* 番茄表面竖向分瓣的微光 + 顶部中央凹陷 */
+.body::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+background:
+radial-gradient(130% 80% at 16% 52%, rgba(0,0,0,.12), rgba(0,0,0,0) 38%),
+radial-gradient(130% 80% at 84% 52%, rgba(0,0,0,.12), rgba(0,0,0,0) 38%),
+radial-gradient(60% 26% at 50% 0%, rgba(0,0,0,.16), rgba(0,0,0,0) 70%);}
+/* 底部小白旋钮（厨房计时器的拧钮） */
+.knob{position:absolute;z-index:0;bottom:-1.1rem;left:50%;transform:translateX(-50%);
+width:5.5rem;height:2.6rem;border-radius:0 0 2.6rem 2.6rem;
+background:linear-gradient(#ffffff,#e4e4e0);box-shadow:0 .5rem .9rem rgba(80,15,10,.25), inset 0 .2rem .4rem rgba(255,255,255,.9);}
+.knob::before{content:"";position:absolute;left:50%;top:.55rem;transform:translateX(-50%);width:.28rem;height:1.4rem;border-radius:999px;background:var(--ink-soft);opacity:.5;}
+
+/* ===== 内部面板 ===== */
+.panel{position:relative;z-index:2;}
+.tabs{display:flex;gap:.35rem;justify-content:center;background:rgba(255,255,255,.92);
+padding:.28rem;border-radius:999px;width:fit-content;margin:0 auto 1rem;box-shadow:0 .3rem .7rem rgba(80,15,10,.18);}
+.tab{border:0;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--ink-soft);background:transparent;
+padding:.42rem 1rem;border-radius:999px;display:flex;align-items:center;gap:.3rem;transition:.25s;white-space:nowrap;}
+.tab.active{background:var(--accent);color:#fff;box-shadow:0 .25rem .6rem rgba(0,0,0,.2);}
+.tab svg{width:.95rem;height:.95rem;}
+.display{position:relative;}
+.digits{display:flex;align-items:center;justify-content:center;gap:.34rem;}
+.group{display:flex;gap:.26rem;background:rgba(255,255,255,.25);padding:.4rem;border-radius:.9rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
+.digit{position:relative;width:2.15rem;height:2.95rem;background:var(--card);border-radius:.55rem;display:flex;align-items:center;justify-content:center;
+font-size:2.05rem;font-weight:700;color:var(--accent-dark);overflow:hidden;box-shadow:0 .2rem .4rem rgba(80,15,10,.18);transition:color .4s ease;}
+.digit::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.06);transform:translateY(-.5px);}
+.colon{font-size:1.7rem;font-weight:700;color:#fff;transition:opacity .2s;}
+.colon.blink{opacity:.3;}
+.date{text-align:center;color:rgba(255,255,255,.9);font-size:.8rem;margin-top:.6rem;letter-spacing:.02em;text-shadow:0 1px 2px rgba(80,15,10,.3);}
+.countdown-ctrl{margin-top:.8rem;display:flex;flex-direction:column;align-items:center;gap:.55rem;}
+.presets{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;}
+.chip{border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.9);color:var(--accent-dark);font-size:.76rem;font-weight:600;padding:.3rem .7rem;border-radius:999px;cursor:pointer;transition:.2s;}
+.chip:hover{background:#fff;}
+.chip.active{background:var(--accent-deep);color:#fff;border-color:transparent;}
+.stepper{display:flex;align-items:center;gap:.55rem;}
+.step-btn{width:1.9rem;height:1.9rem;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--accent-dark);font-size:1.05rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:.2s;box-shadow:0 .2rem .4rem rgba(80,15,10,.2);}
+.step-btn:hover{background:#fff;}
+.step-label{font-size:.78rem;color:#fff;min-width:3.4rem;text-align:center;font-weight:600;}
+.actions{display:flex;gap:.45rem;}
+.btn{border:0;cursor:pointer;font-size:.82rem;font-weight:600;padding:.45rem 1.3rem;border-radius:999px;transition:.2s;}
+.btn-primary{background:#fff;color:var(--accent-dark);box-shadow:0 .25rem .6rem rgba(80,15,10,.25);}
+.btn-primary:hover{background:var(--accent-soft);}
+.btn-ghost{background:rgba(255,255,255,.18);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);}
+.btn-ghost:hover{background:rgba(255,255,255,.3);}
+.sound{margin-top:.75rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.snd-presets{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap;}
+.snd{border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.9);color:var(--accent-dark);font-size:.76rem;font-weight:600;
+padding:.3rem .65rem;border-radius:999px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.25rem;}
+.snd:hover{background:#fff;}
+.snd.active{background:var(--accent-deep);color:#fff;border-color:transparent;}
+.vol{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.9);padding:.35rem .7rem;border-radius:999px;width:fit-content;box-shadow:0 .2rem .4rem rgba(80,15,10,.18);}
+.vol-ico{cursor:pointer;font-size:.95rem;line-height:1;user-select:none;}
+.vol input[type=range]{-webkit-appearance:none;appearance:none;height:.32rem;width:8rem;border-radius:999px;
+background:var(--accent-soft);accent-color:var(--accent);cursor:pointer;}
+.vol input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:.95rem;height:.95rem;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.vol input[type=range]::-moz-range-thumb{width:.95rem;height:.95rem;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #fff;}
+/* 颜色条：竖向贴在番茄右侧 */
+.themes{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;gap:.45rem;align-items:center;background:rgba(255,255,255,.92);padding:.6rem .35rem;border-radius:999px;box-shadow:0 .3rem .6rem rgba(80,15,10,.25);}
+/* 倒计时：侧边颜色条略往上移，避免出边界 */
+.timer-mode .themes{top:43%;}
+/* 时钟：颜色条横放到底部 */
+.clock-mode .themes{position:static;transform:none;flex-direction:row;gap:.55rem;width:fit-content;margin:.9rem auto 0;padding:.45rem .75rem;}
+/* 时钟页上下拉高一些 */
+.clock-mode .body{padding-top:2.9rem;padding-bottom:2.4rem;}
+.swatch{width:1.1rem;height:1.1rem;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.2s;}
+.swatch.active{border-color:#fff;box-shadow:0 0 0 2px currentColor;}
+.swatch:hover{transform:scale(1.12);}
+.hidden{display:none !important;}
+@keyframes flash{0%,100%{filter:brightness(1);}50%{filter:brightness(1.25);}}
+.tomato.ringing .body{animation:flash .7s ease-in-out 6;}
 </style>
 </head>
 <body>
 <div id="stage">
-  <div class="app" id="app">
-    <div class="gears" id="gears"></div>
-    <div class="tabs">
-      <button class="tab active" data-tab="clock">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        时钟
-      </button>
-      <button class="tab" data-tab="timer">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 2h4"/><circle cx="12" cy="13" r="8"/><path d="M12 13V9"/></svg>
-        倒计时
-      </button>
-    </div>
-    <div class="display" id="clockView">
-      <div class="digits">
-        <div class="group"><div class="digit" id="h1">0</div><div class="digit" id="h2">0</div></div>
-        <div class="colon" id="c1">:</div>
-        <div class="group"><div class="digit" id="m1">0</div><div class="digit" id="m2">0</div></div>
-        <div class="colon" id="c2">:</div>
-        <div class="group"><div class="digit" id="s1">0</div><div class="digit" id="s2">0</div></div>
-      </div>
-      <div class="date" id="dateText">—</div>
-    </div>
-    <div class="display hidden" id="timerView">
-      <div class="digits">
-        <div class="group"><div class="digit" id="tm1">2</div><div class="digit" id="tm2">5</div></div>
-        <div class="colon">:</div>
-        <div class="group"><div class="digit" id="ts1">0</div><div class="digit" id="ts2">0</div></div>
-      </div>
-      <div class="countdown-ctrl">
-        <div class="presets" id="presets">
-          <button class="chip" data-min="5">5分</button>
-          <button class="chip" data-min="15">15分</button>
-          <button class="chip active" data-min="25">25分</button>
-          <button class="chip" data-min="45">45分</button>
-        </div>
-        <div class="stepper">
-          <button class="step-btn" id="minus">−</button>
-          <div class="step-label" id="stepLabel">25 分钟</div>
-          <button class="step-btn" id="plus">+</button>
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" id="startBtn">开始</button>
-          <button class="btn btn-ghost" id="resetBtn">重置</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="sound">
-      <div class="snd-presets">
-        <button class="snd" data-snd="stream">💧 流水</button>
-        <button class="snd" data-snd="fire">🔥 篝火</button>
-        <button class="snd" data-snd="rain">🌧️ 小雨</button>
-      </div>
-      <div class="vol">
-        <span class="vol-ico" id="volIco">🔈</span>
-        <input type="range" id="vol" min="0" max="1" step="0.01" value="0.5">
-      </div>
-    </div>
-
-    <div class="themes" id="themes"></div>
-  </div>
+<div class="tomato" id="tomato">
+<div class="leaf">
+<svg viewBox="0 0 120 60">
+<path fill="var(--leaf-dark)" d="M57 8h6l-1 18h-4z"/>
+<g fill="var(--leaf)" stroke="var(--leaf-dark)" stroke-width="1.2" stroke-linejoin="round">
+<path d="M60 30 C44 30 30 22 14 26 C26 38 44 44 60 38 Z"/>
+<path d="M60 30 C76 30 90 22 106 26 C94 38 76 44 60 38 Z"/>
+<path d="M60 32 C50 30 40 18 34 6 C50 10 58 20 62 32 Z"/>
+<path d="M60 32 C70 30 80 18 86 6 C70 10 62 20 58 32 Z"/>
+<path d="M60 34 C57 24 60 12 60 2 C66 12 64 26 62 34 Z"/>
+</g>
+</svg>
+</div>
+<div class="knob"></div>
+<div class="body">
+<div class="panel">
+<div class="tabs">
+<button class="tab active" data-tab="clock">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+时钟
+</button>
+<button class="tab" data-tab="timer">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 2h4"/><circle cx="12" cy="13" r="8"/><path d="M12 13V9"/></svg>
+倒计时
+</button>
+</div>
+<div class="display" id="clockView">
+<div class="digits">
+<div class="group"><div class="digit" id="h1">0</div><div class="digit" id="h2">0</div></div>
+<div class="colon" id="c1">:</div>
+<div class="group"><div class="digit" id="m1">0</div><div class="digit" id="m2">0</div></div>
+<div class="colon" id="c2">:</div>
+<div class="group"><div class="digit" id="s1">0</div><div class="digit" id="s2">0</div></div>
+</div>
+<div class="date" id="dateText">—</div>
+</div>
+<div class="display hidden" id="timerView">
+<div class="digits">
+<div class="group"><div class="digit" id="tm1">2</div><div class="digit" id="tm2">5</div></div>
+<div class="colon">:</div>
+<div class="group"><div class="digit" id="ts1">0</div><div class="digit" id="ts2">0</div></div>
+</div>
+<div class="countdown-ctrl">
+<div class="presets" id="presets">
+<button class="chip" data-min="5">5分</button>
+<button class="chip" data-min="15">15分</button>
+<button class="chip active" data-min="25">25分</button>
+<button class="chip" data-min="45">45分</button>
+</div>
+<div class="stepper">
+<button class="step-btn" id="minus">−</button>
+<div class="step-label" id="stepLabel">25 分钟</div>
+<button class="step-btn" id="plus">+</button>
+</div>
+<div class="actions">
+<button class="btn btn-primary" id="startBtn">开始</button>
+<button class="btn btn-ghost" id="resetBtn">重置</button>
+</div>
+</div>
+</div>
+<div class="sound">
+<div class="snd-presets">
+<button class="snd" data-snd="stream">💧 流水</button>
+<button class="snd" data-snd="fire">🔥 篝火</button>
+<button class="snd" data-snd="rain">🌧️ 小雨</button>
+<button class="snd" data-snd="piano">☕ 咖啡厅</button>
+<button class="snd" data-snd="custom" id="customBtn">🎵 我的音乐</button>
+<button class="snd pick" id="pickBtn">📁 上传</button>
+<input type="file" id="musicFile" accept="audio/*" style="display:none">
+</div>
+<div class="vol">
+<span class="vol-ico" id="volIco">🔈</span>
+<input type="range" id="vol" min="0" max="1" step="0.01" value="0.5">
+</div>
+</div>
+</div>
+<div class="themes" id="themes"></div>
+</div>
+</div>
 </div>
 <script>
-function gearPath(teeth,R,r,hub){const step=Math.PI*2/teeth;let d='';for(let i=0;i<teeth;i++){const a=i*step;const pts=[[a,r],[a+step*0.18,R],[a+step*0.32,R],[a+step*0.5,r]];pts.forEach((p,j)=>{const x=(Math.cos(p[0])*p[1]).toFixed(2),y=(Math.sin(p[0])*p[1]).toFixed(2);d+=(i===0&&j===0?'M':'L')+x+' '+y+' ';});}d+='Z ';d+='M '+hub+' 0 A '+hub+' '+hub+' 0 1 0 '+(-hub)+' 0 A '+hub+' '+hub+' 0 1 0 '+hub+' 0 Z';return d;}
-function makeGear(teeth,R,r,hub){const v=R*2.2;return '<svg viewBox="'+(-v/2)+' '+(-v/2)+' '+v+' '+v+'"><path fill-rule="evenodd" fill="currentColor" d="'+gearPath(teeth,R,r,hub)+'"/></svg>';}
-const GEARS=[{top:-2.6,left:15.5,size:8,dur:70,dir:'CW',op:.7,teeth:12},{top:6.5,left:-2.4,size:6,dur:90,dir:'CCW',op:.6,teeth:10},{top:11.5,left:18,size:5,dur:60,dir:'CCW',op:.55,teeth:9},{top:14.5,left:6.5,size:4,dur:80,dir:'CW',op:.5,teeth:8}];
-const gearsEl=document.getElementById('gears');
-GEARS.forEach(g=>{const el=document.createElement('div');el.className='gear';el.style.width=g.size+'rem';el.style.height=g.size+'rem';el.style.top=g.top+'rem';el.style.left=g.left+'rem';el.style.opacity=g.op;el.style.animation='spin'+g.dir+' '+g.dur+'s linear infinite';el.innerHTML=makeGear(g.teeth,10,7.6,3.4);gearsEl.appendChild(el);});
-const THEMES=[{name:'抹茶绿',accent:'#8a9a5b',dark:'#6f7e45',soft:'#eef1e6',bg:'#f7f6f1',gear:'#e6ebd9'},{name:'雾霾蓝',accent:'#7e9bb0',dark:'#5f7e94',soft:'#e9eef2',bg:'#f4f7f9',gear:'#dde7ed'},{name:'朱砂红',accent:'#b15a4f',dark:'#8f4339',soft:'#f6e9e6',bg:'#faf4f2',gear:'#f0ddd8'},{name:'烟紫',accent:'#9080a0',dark:'#71607f',soft:'#efebf3',bg:'#f7f5f9',gear:'#e7e1ee'},{name:'暖沙',accent:'#c9a06a',dark:'#a87f48',soft:'#f5ecdf',bg:'#faf6ef',gear:'#efe2cf'},{name:'墨黑',accent:'#5b5f66',dark:'#3f4248',soft:'#e9eaec',bg:'#f5f5f6',gear:'#e2e3e5'}];
-const root=document.documentElement,app=document.getElementById('app');
-function applyTheme(i){const t=THEMES[i];root.style.setProperty('--accent',t.accent);root.style.setProperty('--accent-dark',t.dark);root.style.setProperty('--accent-soft',t.soft);root.style.setProperty('--bg',t.bg);root.style.setProperty('--gear',t.gear);document.querySelectorAll('.swatch').forEach((s,idx)=>{s.classList.toggle('active',idx===i);s.style.color=THEMES[idx].accent;});try{localStorage.setItem('presence-clock-theme',i);}catch(e){}}
+const THEMES=[
+{name:'番茄红',accent:'#d23b2e',dark:'#a52b22',deep:'#7e1f19',soft:'#fbe7e3',bg:'#fbeeec',leaf:'#5f9e3f',leafDark:'#477a2c'},
+{name:'南瓜橙',accent:'#e07f2e',dark:'#b9631d',deep:'#8c4912',soft:'#fbeede',bg:'#fbf2e8',leaf:'#6f9e3f',leafDark:'#52792c'},
+{name:'青柿绿',accent:'#7fa83f',dark:'#62842c',deep:'#49641f',soft:'#eef3e1',bg:'#f4f7ec',leaf:'#5f9e3f',leafDark:'#477a2c'},
+{name:'茄紫',accent:'#8a5aa0',dark:'#6c4280',deep:'#4f2f60',soft:'#efe6f3',bg:'#f6f1f9',leaf:'#6f9e3f',leafDark:'#52792c'},
+{name:'蓝莓',accent:'#5277a8',dark:'#3f5d87',deep:'#2c4365',soft:'#e6edf5',bg:'#f1f5f9',leaf:'#5f9e3f',leafDark:'#477a2c'},
+{name:'墨黑',accent:'#5b5f66',dark:'#3f4248',deep:'#2a2c30',soft:'#e9eaec',bg:'#f5f5f6',leaf:'#6f9e3f',leafDark:'#52792c'}
+];
+const root=document.documentElement,tomato=document.getElementById('tomato');
+function applyTheme(i){const t=THEMES[i];root.style.setProperty('--accent',t.accent);root.style.setProperty('--accent-dark',t.dark);root.style.setProperty('--accent-deep',t.deep);root.style.setProperty('--accent-soft',t.soft);root.style.setProperty('--bg',t.bg);root.style.setProperty('--leaf',t.leaf);root.style.setProperty('--leaf-dark',t.leafDark);document.querySelectorAll('.swatch').forEach((s,idx)=>{s.classList.toggle('active',idx===i);s.style.color=THEMES[idx].accent;});try{localStorage.setItem('presence-clock-theme',i);}catch(e){}}
 const themesEl=document.getElementById('themes');
 THEMES.forEach((t,i)=>{const s=document.createElement('div');s.className='swatch';s.style.background=t.accent;s.title=t.name;s.onclick=()=>applyTheme(i);themesEl.appendChild(s);});
 let savedTheme=0;try{savedTheme=parseInt(localStorage.getItem('presence-clock-theme')||'0',10)||0;}catch(e){}
 applyTheme(savedTheme);
+
 const clockView=document.getElementById('clockView'),timerView=document.getElementById('timerView');
-document.querySelectorAll('.tab').forEach(tab=>{tab.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');const isClock=tab.dataset.tab==='clock';clockView.classList.toggle('hidden',!isClock);timerView.classList.toggle('hidden',isClock);fit();};});
+document.querySelectorAll('.tab').forEach(tab=>{tab.onclick=()=>{document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');const isClock=tab.dataset.tab==='clock';clockView.classList.toggle('hidden',!isClock);timerView.classList.toggle('hidden',isClock);tomato.classList.toggle('clock-mode',isClock);tomato.classList.toggle('timer-mode',!isClock);fit();};});
+
 const WEEK=['周日','周一','周二','周三','周四','周五','周六'];
 function setDigits(ids,str){for(let i=0;i<ids.length;i++){const el=document.getElementById(ids[i]);if(el&&el.textContent!==str[i])el.textContent=str[i];}}
 let blinkOn=true;
 function tickClock(){const d=new Date();const hh=String(d.getHours()).padStart(2,'0'),mm=String(d.getMinutes()).padStart(2,'0'),ss=String(d.getSeconds()).padStart(2,'0');setDigits(['h1','h2'],hh);setDigits(['m1','m2'],mm);setDigits(['s1','s2'],ss);document.getElementById('dateText').textContent=(d.getMonth()+1)+'/'+d.getDate()+' '+WEEK[d.getDay()];blinkOn=!blinkOn;document.getElementById('c1').classList.toggle('blink',!blinkOn);document.getElementById('c2').classList.toggle('blink',!blinkOn);}
 setInterval(tickClock,1000);tickClock();
+
 let totalMin=25,remain=25*60,running=false,timerId=null;
 const stepLabel=document.getElementById('stepLabel'),startBtn=document.getElementById('startBtn');
 function renderTimer(){const m=Math.floor(remain/60),s=remain%60;setDigits(['tm1','tm2'],String(m).padStart(2,'0'));setDigits(['ts1','ts2'],String(s).padStart(2,'0'));}
@@ -167,34 +213,56 @@ document.querySelectorAll('.chip').forEach(c=>{c.onclick=()=>{setMinutes(parseIn
 document.getElementById('plus').onclick=()=>setMinutes(totalMin+1);
 document.getElementById('minus').onclick=()=>setMinutes(totalMin-1);
 function beep(){try{const c=audioCtx||new (window.AudioContext||window.webkitAudioContext)();let t=c.currentTime;for(let i=0;i<3;i++){const o=c.createOscillator(),g=c.createGain();o.frequency.value=880;o.type='sine';o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(0.001,t);g.gain.exponentialRampToValueAtTime(0.3,t+0.02);g.gain.exponentialRampToValueAtTime(0.001,t+0.35);o.start(t);o.stop(t+0.36);t+=0.5;}}catch(e){}}
-function finish(){running=false;clearInterval(timerId);startBtn.textContent='开始';app.classList.add('ringing');beep();setTimeout(()=>app.classList.remove('ringing'),4500);}
+function finish(){running=false;clearInterval(timerId);startBtn.textContent='开始';tomato.classList.add('ringing');beep();setTimeout(()=>tomato.classList.remove('ringing'),4500);}
 function tick(){if(remain<=0){finish();return;}remain--;renderTimer();if(remain<=0)finish();}
 startBtn.onclick=()=>{if(running){running=false;clearInterval(timerId);startBtn.textContent='继续';}else{if(remain<=0)remain=totalMin*60;running=true;startBtn.textContent='暂停';timerId=setInterval(tick,1000);}};
 document.getElementById('resetBtn').onclick=()=>{running=false;clearInterval(timerId);startBtn.textContent='开始';remain=totalMin*60;renderTimer();};
 setMinutes(25);renderTimer();
+
 let audioCtx=null,noiseBuf=null,srcNode=null,masterGain=null,crackleTimer=null,lfoNode=null,currentSound=null;
 const volSlider=document.getElementById('vol'),volIco=document.getElementById('volIco');
 let savedVol=0.5;try{savedVol=parseFloat(localStorage.getItem('presence-clock-vol')||'0.5');}catch(e){}
-volSlider.value=savedVol;updateVolIco();
+volSlider.value=savedVol;
 function makeNoise(ctx,sec){const len=Math.floor(ctx.sampleRate*sec);const buf=ctx.createBuffer(1,len,ctx.sampleRate);const data=buf.getChannelData(0);for(let i=0;i<len;i++){data[i]=Math.random()*2-1;}return buf;}
 function ensureCtx(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)();masterGain=audioCtx.createGain();masterGain.gain.value=parseFloat(volSlider.value);masterGain.connect(audioCtx.destination);noiseBuf=makeNoise(audioCtx,3);}if(audioCtx.state==='suspended')audioCtx.resume();}
-function stopSound(){if(srcNode){try{srcNode.stop();}catch(e){}try{srcNode.disconnect();}catch(e){}srcNode=null;}if(lfoNode){try{lfoNode.stop();}catch(e){}lfoNode=null;}clearTimeout(crackleTimer);currentSound=null;document.querySelectorAll('.snd').forEach(b=>b.classList.remove('active'));}
-function scheduleCrackle(){clearTimeout(crackleTimer);function pop(){if(currentSound!=='fire'||!audioCtx)return;const b=audioCtx.createBufferSource();b.buffer=noiseBuf;const f=audioCtx.createBiquadFilter();f.type='bandpass';f.frequency.value=900+Math.random()*2600;f.Q.value=3;const g=audioCtx.createGain();const t=audioCtx.currentTime;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.25+Math.random()*0.4,t+0.004);g.gain.exponentialRampToValueAtTime(0.0001,t+0.04+Math.random()*0.09);b.connect(f);f.connect(g);g.connect(masterGain);b.start(t);b.stop(t+0.22);crackleTimer=setTimeout(pop,110+Math.random()*520);}pop();}
+function stopSound(){if(srcNode){try{srcNode.stop();}catch(e){}try{srcNode.disconnect();}catch(e){}srcNode=null;}if(lfoNode){try{lfoNode.stop();}catch(e){}lfoNode=null;}if(customAudio){try{customAudio.pause();}catch(e){}}clearTimeout(crackleTimer);currentSound=null;document.querySelectorAll('.snd').forEach(b=>b.classList.remove('active'));}
+function scheduleCrackle(){clearTimeout(crackleTimer);function pop(){if(currentSound!=='fire'||!audioCtx)return;const b=audioCtx.createBufferSource();b.buffer=noiseBuf;const f=audioCtx.createBiquadFilter();f.type='bandpass';f.frequency.value=650+Math.random()*1500;f.Q.value=2.2;const g=audioCtx.createGain();const t=audioCtx.currentTime;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.07+Math.random()*0.12,t+0.006);g.gain.exponentialRampToValueAtTime(0.0001,t+0.05+Math.random()*0.11);b.connect(f);f.connect(g);g.connect(masterGain);b.start(t);b.stop(t+0.22);crackleTimer=setTimeout(pop,170+Math.random()*640);}pop();}
+function scheduleBubble(){clearTimeout(crackleTimer);function gloop(){if(currentSound!=='stream'||!audioCtx)return;const t=audioCtx.currentTime;const o=audioCtx.createOscillator();o.type='sine';const f0=120+Math.random()*180;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f0*(1.5+Math.random()*0.9),t+0.06+Math.random()*0.09);const g=audioCtx.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.03+Math.random()*0.045,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.15+Math.random()*0.18);o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+0.42);crackleTimer=setTimeout(gloop,75+Math.random()*180);}gloop();}
+function scheduleDrops(){clearTimeout(crackleTimer);function drop(){if(currentSound!=='rain'||!audioCtx)return;const b=audioCtx.createBufferSource();b.buffer=noiseBuf;const f=audioCtx.createBiquadFilter();f.type='bandpass';f.frequency.value=1700+Math.random()*2200;f.Q.value=5;const g=audioCtx.createGain();const t=audioCtx.currentTime;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.03+Math.random()*0.055,t+0.004);g.gain.exponentialRampToValueAtTime(0.0001,t+0.02+Math.random()*0.04);b.connect(f);f.connect(g);g.connect(masterGain);b.start(t);b.stop(t+0.1);crackleTimer=setTimeout(drop,60+Math.random()*200);}drop();}
+const SONGS=[
+{name:'致爱丽丝',bpm:78,mel:[{n:'E5',d:.5},{n:'D#5',d:.5},{n:'E5',d:.5},{n:'D#5',d:.5},{n:'E5',d:.5},{n:'B4',d:.5},{n:'D5',d:.5},{n:'C5',d:.5},{n:'A4',d:1,ch:['A2','E3']},{n:'R',d:.5},{n:'C4',d:.5},{n:'E4',d:.5},{n:'A4',d:.5},{n:'B4',d:1,ch:['E2','E3']},{n:'R',d:.5},{n:'E4',d:.5},{n:'G#4',d:.5},{n:'B4',d:.5},{n:'C5',d:1,ch:['A2','E3']},{n:'R',d:.5},{n:'E5',d:.5},{n:'D#5',d:.5},{n:'E5',d:.5},{n:'D#5',d:.5},{n:'E5',d:.5},{n:'B4',d:.5},{n:'D5',d:.5},{n:'C5',d:.5},{n:'A4',d:1,ch:['A2','E3']},{n:'R',d:.5},{n:'C4',d:.5},{n:'E4',d:.5},{n:'A4',d:.5},{n:'B4',d:1,ch:['E2','E3']},{n:'R',d:.5},{n:'E4',d:.5},{n:'C5',d:.5},{n:'B4',d:.5},{n:'A4',d:1.5,ch:['A2','E3']},{n:'R',d:1}]},
+{name:'卡农',bpm:92,mel:[{n:'F#5',d:1,ch:['D3','A3']},{n:'E5',d:1,ch:['A2','E3']},{n:'D5',d:1,ch:['B2','F#3']},{n:'C#5',d:1,ch:['F#2','C#3']},{n:'B4',d:1,ch:['G2','D3']},{n:'A4',d:1,ch:['D3','A3']},{n:'B4',d:1,ch:['G2','D3']},{n:'C#5',d:1,ch:['A2','E3']},{n:'D5',d:1,ch:['D3','A3']},{n:'C#5',d:1,ch:['A2','E3']},{n:'B4',d:1,ch:['B2','F#3']},{n:'A4',d:1,ch:['F#2','C#3']},{n:'G4',d:1,ch:['G2','D3']},{n:'F#4',d:1,ch:['D3','A3']},{n:'G4',d:1,ch:['G2','D3']},{n:'E4',d:1,ch:['A2','E3']},{n:'R',d:1}]},
+{name:'欢乐颂',bpm:104,mel:[{n:'E4',d:1},{n:'E4',d:1},{n:'F4',d:1},{n:'G4',d:1},{n:'G4',d:1},{n:'F4',d:1},{n:'E4',d:1},{n:'D4',d:1},{n:'C4',d:1},{n:'C4',d:1},{n:'D4',d:1},{n:'E4',d:1},{n:'E4',d:1.5},{n:'D4',d:.5},{n:'D4',d:2},{n:'E4',d:1},{n:'E4',d:1},{n:'F4',d:1},{n:'G4',d:1},{n:'G4',d:1},{n:'F4',d:1},{n:'E4',d:1},{n:'D4',d:1},{n:'C4',d:1},{n:'C4',d:1},{n:'D4',d:1},{n:'E4',d:1},{n:'D4',d:1.5},{n:'C4',d:.5},{n:'C4',d:2},{n:'R',d:1}]}
+];
+function freqOf(n){if(!n||n==='R')return 0;const map={C:0,'C#':1,D:2,'D#':3,E:4,F:5,'F#':6,G:7,'G#':8,A:9,'A#':10,B:11};const oct=parseInt(n.slice(-1),10);const key=n.slice(0,-1);const midi=map[key]+(oct+1)*12;return 440*Math.pow(2,(midi-69)/12);}
+function tone(freq,dur,vel){if(!freq||!audioCtx)return;const t=audioCtx.currentTime;const g=audioCtx.createGain();const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vel,t+0.014);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);const o1=audioCtx.createOscillator();o1.type='triangle';o1.frequency.value=freq;const o2=audioCtx.createOscillator();o2.type='sine';o2.frequency.value=freq*2;const g2=audioCtx.createGain();g2.gain.value=0.2;o1.connect(g);o2.connect(g2);g2.connect(g);g.connect(lp);lp.connect(masterGain);o1.start(t);o2.start(t);o1.stop(t+dur+0.2);o2.stop(t+dur+0.2);}
+let pianoSong=0,pianoEvt=0;
+function schedulePiano(){clearTimeout(crackleTimer);pianoSong=Math.floor(Math.random()*SONGS.length);pianoEvt=0;function step(){if(currentSound!=='piano'||!audioCtx)return;const song=SONGS[pianoSong];const beat=60/song.bpm;if(pianoEvt>=song.mel.length){pianoSong=(pianoSong+1)%SONGS.length;pianoEvt=0;crackleTimer=setTimeout(step,1100);return;}const ev=song.mel[pianoEvt++];const dur=ev.d*beat;const f=freqOf(ev.n);if(f)tone(f,Math.min(dur*1.5,3),0.09);if(ev.ch){ev.ch.forEach(cn=>{const cf=freqOf(cn);if(cf)tone(cf,Math.min(dur*1.7,3.2),0.045);});}crackleTimer=setTimeout(step,dur*1000);}step();}
 function startSound(type){ensureCtx();stopSound();currentSound=type;srcNode=audioCtx.createBufferSource();srcNode.buffer=noiseBuf;srcNode.loop=true;
-  if(type==='rain'){const hp=audioCtx.createBiquadFilter();hp.type='highpass';hp.frequency.value=1100;const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=7800;srcNode.connect(hp);hp.connect(lp);lp.connect(masterGain);}
-  else if(type==='stream'){const bp=audioCtx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=650;bp.Q.value=0.6;const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2200;lfoNode=audioCtx.createOscillator();lfoNode.frequency.value=0.35;const lg=audioCtx.createGain();lg.gain.value=300;lfoNode.connect(lg);lg.connect(bp.frequency);lfoNode.start();srcNode.connect(bp);bp.connect(lp);lp.connect(masterGain);}
-  else if(type==='fire'){const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=480;const lp2=audioCtx.createBiquadFilter();lp2.type='lowpass';lp2.frequency.value=480;srcNode.connect(lp);lp.connect(lp2);lp2.connect(masterGain);scheduleCrackle();}
-  srcNode.start();}
+if(type==='rain'){const hp=audioCtx.createBiquadFilter();hp.type='highpass';hp.frequency.value=1200;const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=4600;const g=audioCtx.createGain();g.gain.value=0.18;srcNode.connect(hp);hp.connect(lp);lp.connect(g);g.connect(masterGain);scheduleDrops();}
+else if(type==='stream'){const bp=audioCtx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=380;bp.Q.value=0.7;const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1100;lfoNode=audioCtx.createOscillator();lfoNode.frequency.value=0.4;const lg=audioCtx.createGain();lg.gain.value=140;lfoNode.connect(lg);lg.connect(bp.frequency);lfoNode.start();const g=audioCtx.createGain();g.gain.value=0.16;srcNode.connect(bp);bp.connect(lp);lp.connect(g);g.connect(masterGain);scheduleBubble();}
+else if(type==='fire'){const lp=audioCtx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=440;const lp2=audioCtx.createBiquadFilter();lp2.type='lowpass';lp2.frequency.value=440;const g=audioCtx.createGain();g.gain.value=0.45;srcNode.connect(lp);lp.connect(lp2);lp2.connect(g);g.connect(masterGain);scheduleCrackle();}
+else if(type==='piano'){schedulePiano();}
+else if(type==='custom'){if(customAudio&&customURL){ensureCustomGraph();customAudio.play().catch(()=>{});}}
+srcNode.start();}
 document.querySelectorAll('.snd').forEach(btn=>{btn.onclick=()=>{const type=btn.dataset.snd;if(currentSound===type){stopSound();return;}startSound(type);document.querySelectorAll('.snd').forEach(b=>b.classList.toggle('active',b===btn));};});
+let customURL=null,customAudio=null,customSrcNode=null;
+function ensureCustomGraph(){if(!customAudio)return;if(!customSrcNode){customSrcNode=audioCtx.createMediaElementSource(customAudio);customSrcNode.connect(masterGain);}}
+const musicFile=document.getElementById('musicFile'),customBtn=document.getElementById('customBtn'),pickBtn=document.getElementById('pickBtn');
+musicFile.onchange=(e)=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(customURL)URL.revokeObjectURL(customURL);customURL=URL.createObjectURL(f);if(!customAudio){customAudio=new Audio();customAudio.loop=true;}customAudio.src=customURL;const nm=f.name.replace(/\.[^.]+$/,'');customBtn.textContent='🎵 '+(nm.length>8?nm.slice(0,8)+'…':nm);startSound('custom');document.querySelectorAll('.snd').forEach(b=>b.classList.toggle('active',b===customBtn));};
+customBtn.onclick=()=>{if(!customURL){musicFile.click();return;}if(currentSound==='custom'){stopSound();return;}startSound('custom');document.querySelectorAll('.snd').forEach(b=>b.classList.toggle('active',b===customBtn));};
+pickBtn.onclick=()=>{musicFile.click();};
 function updateVolIco(){const v=parseFloat(volSlider.value);volIco.textContent=v<=0?'🔇':(v<0.5?'🔈':'🔊');}
+updateVolIco();
 let preMute=0.5;
 volSlider.oninput=()=>{const v=parseFloat(volSlider.value);if(masterGain)masterGain.gain.value=v;updateVolIco();try{localStorage.setItem('presence-clock-vol',v);}catch(e){}};
 volIco.onclick=()=>{const v=parseFloat(volSlider.value);if(v>0){preMute=v;volSlider.value=0;}else{volSlider.value=preMute||0.5;}volSlider.oninput();};
+
 const stage=document.getElementById('stage');
-function fit(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;const APP_W_REM=24;const appH=document.querySelector('.app').offsetHeight;const curFont=parseFloat(root.style.fontSize)||16;const appH_REM=appH/curFont;const byW=w/APP_W_REM,byH=h/(appH_REM||34);let fs=Math.min(byW,byH)*0.96;fs=Math.max(6,Math.min(fs,34));root.style.fontSize=fs+'px';}
+function fit(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;const APP_W_REM=27.5;const appH=document.querySelector('.tomato').offsetHeight;const curFont=parseFloat(root.style.fontSize)||16;const appH_REM=appH/curFont;const byW=w/(APP_W_REM+2);const byH=h/((appH_REM||34)+2);let fs=Math.min(byW,byH)*0.96;fs=Math.max(6,Math.min(fs,28));root.style.fontSize=fs+'px';}
 if(window.ResizeObserver){new ResizeObserver(fit).observe(stage);}
 window.addEventListener('resize',fit);window.addEventListener('load',fit);
-root.style.fontSize='16px';fit();requestAnimationFrame(fit);setTimeout(fit,60);
+tomato.classList.add('clock-mode');root.style.fontSize='16px';fit();requestAnimationFrame(fit);setTimeout(fit,60);
 </script>
 </body>
 </html>
