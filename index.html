@@ -209,7 +209,6 @@ animation:numFlash 0.6s ease;
     <h1>你不是缺模板，<br>是缺一个能追问你为什么拖延的系统</h1>
     <p class="tagline">大部分 Notion 模板教你"记下来"，这个系统帮你"想明白"。</p>
     <p style="margin-top:18px;font-size:16px;font-weight:800;color:#1d4ed8;font-style:italic;letter-spacing:0.3px;">“我的系统不是为了消除困难，而是为了把困难翻译成内啡肽。”</p>
-    <div class="hero-price-hint">💡 早鸟价 <strong>¥69</strong> 起 · 限前 100 名 · <strong>已有 <span id="hero-sold">--</span> 人入手</strong></div>
   </section>
 
   <!-- HERO IMAGE -->
@@ -457,21 +456,6 @@ animation:numFlash 0.6s ease;
     <p>Notion 个人管理系统｜把目标、习惯、任务和生活节奏放进一个系统</p>
   </div>
 
-  <div class="early-bird-banner">
-    🌱 <strong>年中复盘 · 开张早鸟价</strong>
-    <span class="spots-left"><span class="dot"></span>限前 100 名 · 仅剩 <span class="num" id="spots-num">87</span> 名</span>
-    <br>6/30 截止，加微信领半价
-    <div style="margin:16px 0 8px;">
-      <img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%90%AF%E5%8A%A8%E4%BB%B7%2069.png" alt="早鸟启动价" style="max-width:400px;width:100%;border-radius:10px;">
-    </div>
-    <div class="countdown">
-      ⏰ 活动倒计时
-      <span id="cd-days">--</span> 天
-      <span id="cd-hours">--</span> :
-      <span id="cd-mins">--</span> :
-      <span id="cd-secs">--</span>
-    </div>
-  </div>
 
   <div class="grid">
 
@@ -492,10 +476,7 @@ animation:numFlash 0.6s ease;
       </ul>
       <div class="price">¥138</div>
       <div class="price-note">一次购买，永久使用</div>
-      <div class="early-price">
-        🌱 早鸟价 <span class="ep-amount">¥69</span><span class="ep-strike">¥138</span>
-      </div>
-      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn primary" onclick="joinGroup()">加微信咨询客服</button>
       <button class="btn secondary" onclick="openPay('xl', 138)">直接扫码购买 </button>
     </div>
 
@@ -515,10 +496,7 @@ animation:numFlash 0.6s ease;
       </ul>
       <div class="price">¥299</div>
       <div class="price-note">一次购买，永久使用</div>
-      <div class="early-price">
-        🌱 早鸟价 <span class="ep-amount">¥199</span><span class="ep-strike">¥299</span>
-      </div>
-      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn primary" onclick="joinGroup()">加微信咨询客服</button>
       <button class="btn secondary" onclick="openPay('bz', 299)">直接扫码购买 </button>
     </div>
 
@@ -537,10 +515,7 @@ animation:numFlash 0.6s ease;
       </ul>
       <div class="price">¥599</div>
       <div class="price-note">含终身更新</div>
-      <div class="early-price">
-        🌱 早鸟价 <span class="ep-amount">¥399</span><span class="ep-strike">¥599</span>
-      </div>
-      <button class="btn primary" onclick="joinGroup()">加微信领早鸟价</button>
+      <button class="btn primary" onclick="joinGroup()">加微信咨询客服</button>
       <button class="btn secondary" onclick="openPay('pro', 599)">直接扫码购买 </button>
     </div>
 
@@ -619,9 +594,8 @@ animation:numFlash 0.6s ease;
 <h3>请扫码支付</h3>
 <div class="price-tip" id="showPrice">
   <span id="fullPrice">¥299</span>
-  <span id="salePrice">早鸟价 ¥199</span>
 </div>
-<div class="desc">企业微信收款，认准对应版本金额<br>💡 直接扫码付原价，加客服微信领专属早鸟价</div>
+<div class="desc">企业微信收款，认准对应版本金额</div>
 <img id="qrcode" src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AF%B9%E5%A4%96%E6%94%B6%E6%AC%BE%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="对外收款码">
 <p>付款完成后，点击下方按钮进入专属客户群领取模板</p>
 <button class="btn-pay" onclick="joinGroup()">我已付款，联系客服发货</button>
@@ -633,21 +607,7 @@ animation:numFlash 0.6s ease;
 const groupLink = "https://work.weixin.qq.com/ca/cawcde3aec710217c7";
 
 function openPay(type, fullPrice){
-  let salePrice;
-  if (fullPrice === 138) {
-    salePrice = 69;
-  } else if (fullPrice === 299) {
-    salePrice = 199;
-  } else if (fullPrice === 599) {
-    salePrice = 399;
-  }
-  if (salePrice) {
-    document.getElementById("fullPrice").innerHTML = `<s>¥${fullPrice}</s>`;
-    document.getElementById("salePrice").innerText = `早鸟价 ¥${salePrice}`;
-  } else {
-    document.getElementById("fullPrice").innerHTML = `¥${fullPrice}`;
-    document.getElementById("salePrice").innerText = "";
-  }
+  document.getElementById("fullPrice").innerHTML = `¥${fullPrice}`;
   document.getElementById("mask").style.display = "flex";
 }
 function closeMask(){
@@ -660,84 +620,13 @@ if(!m){
 m = document.createElement("div");
 m.id = "serviceMask";
 m.className = "mask";
-m.innerHTML = '<div class="pay-box"><h3>微信扫码咨询客服</h3><div class="desc">扫码联系客服领取早鸟价 / 售后咨询</div><img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="客服二维码"><button class="btn-pay" onclick="window.open(groupLink,&quot;_blank&quot;);document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">打开企业微信添加客服</button><div class="close" onclick="document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">关闭</div></div>';
+m.innerHTML = '<div class="pay-box"><h3>微信扫码咨询客服</h3><div class="desc">扫码联系客服咨询 / 售后</div><img src="https://raw.githubusercontent.com/Grace7228/lifeos-store/main/%E5%AE%A2%E6%9C%8D%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg" alt="客服二维码"><button class="btn-pay" onclick="window.open(groupLink,&quot;_blank&quot;);document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">打开企业微信添加客服</button><div class="close" onclick="document.getElementById(&quot;serviceMask&quot;).style.display=&quot;none&quot;">关闭</div></div>';
 document.body.appendChild(m);
 }
 m.style.display = "flex";
 }
 
-// ====== 倒计时 ======
-const earlyBirdEndDate = new Date("2026-06-30T23:59:59+08:00").getTime();
-function updateCountdown(){
-const now = new Date().getTime();
-const distance = earlyBirdEndDate - now;
-if(distance < 0){
-document.querySelector(".countdown").innerHTML = "⏰ 早鸟活动已结束";
-return;
-}
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const secs = Math.floor((distance % (1000 * 60)) / 1000);
-document.getElementById("cd-days").innerText = days;
-document.getElementById("cd-hours").innerText = String(hours).padStart(2, '0');
-document.getElementById("cd-mins").innerText = String(mins).padStart(2, '0');
-document.getElementById("cd-secs").innerText = String(secs).padStart(2, '0');
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
 
-// ====== 名额不规则递减 ======
-const START_SPOTS = 83;
-const START_DATE = new Date("2026-05-13T00:00:00+08:00");
-const DEADLINE_DATE = new Date("2026-06-30T23:59:59+08:00");
-
-function dailyDrop(dayIndex) {
-  const seed = dayIndex * 2654435761;
-  const r = Math.abs(Math.sin(seed) * 0.6 + Math.sin(seed * 1.7 + 3) * 0.3 + Math.sin(seed * 0.5 + 1) * 0.1);
-  return r * 4;
-}
-
-function getRemainingSpots() {
-  const now = new Date();
-  if (now >= DEADLINE_DATE) return 0;
-  const totalDays = Math.ceil((DEADLINE_DATE - START_DATE) / (1000 * 60 * 60 * 24));
-  const elapsedMs = now - START_DATE;
-  if (elapsedMs <= 0) return START_SPOTS;
-  const elapsedDays = elapsedMs / (1000 * 60 * 60 * 24);
-  const dayIndex = Math.floor(elapsedDays);
-  const dayFrac = elapsedDays - dayIndex;
-  let rawTotal = 0;
-  for (let i = 0; i < totalDays; i++) rawTotal += dailyDrop(i);
-  let dropped = 0;
-  for (let i = 0; i < dayIndex; i++) {
-    dropped += dailyDrop(i) / rawTotal * START_SPOTS;
-  }
-  dropped += (dailyDrop(dayIndex) / rawTotal * START_SPOTS) * dayFrac;
-  return Math.max(0, Math.round(START_SPOTS - dropped));
-}
-
-function updateSpots() {
-const spots = getRemainingSpots();
-const el = document.getElementById("spots-num");
-const current = parseInt(el.innerText) || spots;
-if (current !== spots) {
-el.classList.add("flash");
-setTimeout(() => el.classList.remove("flash"), 600);
-el.innerText = spots;
-}
-}
-
-function syncHeroSold() {
-  const spots = getRemainingSpots();
-  const sold = 100 - spots;
-  const el = document.getElementById('hero-sold');
-  if (el) el.innerText = sold;
-}
-
-updateSpots();
-syncHeroSold();
-setInterval(function(){ updateSpots(); syncHeroSold(); }, 30000);
 </script>
 </body>
 </html>
